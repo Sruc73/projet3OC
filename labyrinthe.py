@@ -3,14 +3,20 @@
 
 import tkinter as tk
 
+
 class Grid:
+
+    ROWS = 15
+    COLS = 15
 
     def __init__(self):
         """Constructor for a 15X15 grid"""
-        WIDTH = 15
-        HEIGHT = 15
+        # Filled the grid with number 1 to have a visual
+        print([[1] * self.COLS for y in range(self.ROWS)])
 
 
+def main():
+    lab = Grid()
 
 if __name__ == "__main__":
     main()
