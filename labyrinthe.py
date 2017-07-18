@@ -13,7 +13,7 @@ class Grid:
     # def __init__(self):
     #     """Constructor for a 15X15 grid"""
     #     # Filled the grid with number 1 to have a visual
-    #     print([[1] * self.COLS for y in range(self.ROWS)])
+    #     print([[self.WALL] * self.COLS for y in range(self.ROWS)])
     #
     # def __init__(self):
     #     """ Constructor for a 15X15 grid """
