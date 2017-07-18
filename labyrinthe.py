@@ -21,7 +21,7 @@ class Grid:
     #         for row in range(0, self.ROWS)])
 
     def __init__(self):
-        """Génère un plateau de jeu de taille donnée."""
+        """Génère une grille de 15X15"""
         plateau = []
         for i in range(self.ROWS):
             plateau.append([])
