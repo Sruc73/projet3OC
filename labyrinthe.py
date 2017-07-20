@@ -10,24 +10,23 @@ class Grid:
     COLS = 15
     WALL = "/"
     #
-    # def __init__(self):
-    #     """Constructor for a 15X15 grid"""
-    #     # Filled the grid with number 1 to have a visual
-    #     print([[self.WALL] * self.COLS for y in range(self.ROWS)])
-    #
+    def __init__(self):
+        """Constructor for a 15X15 grid"""
+        print([[self.WALL] * self.COLS for y in range(self.ROWS)])
+
     # def __init__(self):
     #     """ Constructor for a 15X15 grid """
     #     print([[(row, col) for col in range(0, self.COLS)]\
     #         for row in range(0, self.ROWS)])
 
-    def __init__(self):
-        """Génère une grille de 15X15"""
-        plateau = []
-        for i in range(self.ROWS):
-            plateau.append([])
-            for j in range(self.COLS):
-                plateau[i].append(self.WALL)
-        print(plateau)
+    # def __init__(self):
+    #     """Create a grid 15X15"""
+    #     labyrinthe = []
+    #     for i in range(self.ROWS):
+    #         labyrinthe.append([])
+    #         for j in range(self.COLS):
+    #             labyrinthe[i].append(self.WALL)
+    #     print(labyrinthe)
 
 
 def main():
