@@ -2,6 +2,9 @@
 # coding: utf-8
 
 import tkinter as tk
+from Random import randint
+
+
 
 
 class Grid:
@@ -25,6 +28,8 @@ class Position():
         self.rows = rows
         self.cols = cols
         return rows, cols
+
+    # ToDo: Random pour placer aléatoirement les objets
 
     @property
     def rows(self):
