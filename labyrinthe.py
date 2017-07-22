@@ -8,28 +8,41 @@ class Grid:
 
     ROWS = 15
     COLS = 15
-    WALL = "/"
+    WALL ="#"
 
     def __init__(self):
         """Constructor for a 15X15 grid"""
-        self.tab = [[self.WALL] * self.COLS for y in range(self.ROWS)]
+        self.tab = [[self.WALL] * self.ROWS for y in range(self.COLS)]
 
-    def __str__(self):
-        # Pour longueur de la ligne < ROWS:
-
+    # def __str__(self):
+    #
+    #     return str(self.lab)
 
 
 class Position():
+    """ Return the position in the grid """
+    def __init__(self, rows, cols):
+        self.rows = rows
+        self.cols = cols
+        return rows, cols
 
-    def __init__(self, x, y):
-        for x in tab:
-            pass
+    @property
+    def rows(self):
+        return self.rows
+
+    @property
+    def cols(self):
+        return self.cols
 
 
-class Character():
+class Character(Position):
 
     def __init__(self, Position):
         pass
+
+    def move_character():
+        pass
+
 
 def main():
     lab = Grid()
