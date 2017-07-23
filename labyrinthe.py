@@ -28,8 +28,9 @@ class Position():
         self.ligne = rows
         self.colonnes = cols
 
-    # Return a tuple (x, y) with x = row number and y = col number
     def random_position(self, a, b):
+        """ Return a random tuple (x, y) with x = row number and y = col number
+            to set an object in the grid """
         self.x = randint(a, b)
         self.y = randint(a,b)
         return (self.x, self.y)
