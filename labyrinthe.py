@@ -2,7 +2,7 @@
 # coding: utf-8
 
 import tkinter as tk
-from Random import randint
+from random import randint
 
 
 
@@ -25,11 +25,14 @@ class Grid:
 class Position():
     """ Return the position in the grid """
     def __init__(self, rows, cols):
-        self.rows = rows
-        self.cols = cols
-        return rows, cols
+        self.ligne = rows
+        self.colonnes = cols
 
-    # ToDo: Random pour placer aléatoirement les objets
+    # Return a tuple (x, y) with x = row number and y = col number
+    def random_position(self, a, b):
+        self.x = randint(a, b)
+        self.y = randint(a,b)
+        return (self.x, self.y)
 
     @property
     def rows(self):
@@ -52,6 +55,11 @@ class Character(Position):
 def main():
     lab = Grid()
     print(lab.tab)
+    agent = Position(3, 8)
+    print(agent.random_position(0, 6))
+    print(agent)
+
+
 
 if __name__ == "__main__":
     main()
