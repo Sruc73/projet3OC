@@ -49,6 +49,10 @@ class Character(Position):
         pass
 
     def move_character():
+        # Add 1 to character's position (line) if right arrow is pressed
+        # Remove 1 to character's position (line) if left arrow is pressed
+        # Add 1 to character's position (column) if top arrow is pressed
+        # Remove 1 to charater's position (column) if bottom arrow is pressed
         pass
 
 
