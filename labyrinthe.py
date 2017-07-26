@@ -3,6 +3,7 @@
 
 import tkinter as tk
 from random import randint
+import os
 
 
 class Grid:
@@ -39,6 +40,7 @@ class Position():
             to set an object in the grid """
 
         # Ajouter la gestion des cases déja occupées par un objet
+        # Si la case est occupée, on choisi un autre random tuple
         self.x = randint(a, b)
         self.y = randint(a,b)
         return (self.x, self.y)
@@ -62,6 +64,10 @@ class Character(Position):
         # Remove 1 to character's position (line) if left arrow is pressed
         # Add 1 to character's position (column) if top arrow is pressed
         # Remove 1 to charater's position (column) if bottom arrow is pressed
+        pass
+
+    def get_object():
+        """ Add all items picked up to make the syringe """
         pass
 
 
