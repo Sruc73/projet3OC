@@ -5,8 +5,6 @@ import tkinter as tk
 from random import randint
 
 
-
-
 class Grid:
 
     ROWS = 15
@@ -15,7 +13,15 @@ class Grid:
 
     def __init__(self):
         """Constructor for a 15X15 grid"""
-        self.tab = [[self.WALL] * self.ROWS for y in range(self.COLS)]
+        self.tab = [[self.WALL * self.ROWS] for y in range(self.COLS)]
+
+    def is_free(self, a, b):
+        """ Boolean to know if a box is free or not """
+        for a, b in self.tab:
+            if self.tab[a][b] == "#":
+                return False
+            else:
+                return True
 
     # def __str__(self):
     #
@@ -31,17 +37,19 @@ class Position():
     def random_position(self, a, b):
         """ Return a random tuple (x, y) with x = row number and y = col number
             to set an object in the grid """
+
+        # Ajouter la gestion des cases déja occupées par un objet
         self.x = randint(a, b)
         self.y = randint(a,b)
         return (self.x, self.y)
 
-    @property
-    def rows(self):
-        return self.rows
-
-    @property
-    def cols(self):
-        return self.cols
+    # @property
+    # def rows(self):
+    #     return self.rows
+    #
+    # @property
+    # def cols(self):
+    #     return self.cols
 
 
 class Character(Position):
@@ -60,9 +68,11 @@ class Character(Position):
 def main():
     lab = Grid()
     print(lab.tab)
-    agent = Position(3, 8)
-    print(agent.random_position(0, 6))
-    print(agent)
+    place = Position(0, 17)
+    place.random_position(0, 17)
+    print(place)
+    # print(place.random_position(0, 6))
+    # print(place)
 
 
 
