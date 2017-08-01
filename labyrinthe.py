@@ -10,41 +10,44 @@ class Grid:
 
     ROWS = 15
     COLS = 15
-    wall ="*" # Importer depuis le fichier structure.txt les chaines de caractere shcématisant le laby
+    wall = "*" # open("structure.txt", "r")
 
     def __init__(self):
         """Constructor for a 15X15 grid"""
         self.tab = [[self.wall]  * self.ROWS for y in range(self.COLS)]
 
-
     def is_free(self, row, col):
         """ To know if a box is empty or not """
-        for i in range(self.rows):
-            if self.tab[row][col] == " ":
-                return True
-            else:
-                return False
+        # for i in range(self.rows):
+        #     if self.tab[row][col] == " ":
+        #         return True
+        #     else:
+        #         return False
 
+        # Parcourir le labyrinthe et créer un tuple pour chaque case sur laquelle
+        # il n'y a pas d'objet positionné dessus les stocker dans une liste
+        # et comparer les coordonnées des objets/perso aux tuples de la liste
+        # afin de savoir si on peut le placer ici
+        # Autrement, attribuer une nouvelle case à l'objet
 
 
 class Position():
     """ Return the position in the grid """
     def __init__(self, rows, cols):
-        self.ligne = rows
-        self.colonnes = cols
+        self.rows = rows
+        self.cols = cols
 
-    def position_tuple(self):
-        return(self.ligne, self.colonnes)
-
+    def fixed_position(row, col):
+        fixed_rows = row
+        fixed_cols = col
+        return (fixed_rows, fixed_cols)
 
     def random_position(a, b):
         """ Return a random tuple (x, y) with x = row number and y = col number
             to set an object in the grid """
-        # Ajouter la gestion des cases déja occupées par un objet
-        # Si la case est occupée, on choisi un autre random tuple
-        x = randint(a, b)
-        y = randint(a, b)
-        return (x, y)
+        rand_x = randint(a, b)
+        rand_y = randint(a, b)
+        return (rand_x, rand_y)
 
 
 class Character():
@@ -52,13 +55,22 @@ class Character():
     def __init__(self):
         self.name = name
         self.picture = picture
-        self.position = position.position_tuple()
+        # self.position = Position.grid_coord
+
+    def put_character_in_lab(self):
+        x = position[0]
+        y = position[1]
+        pos = (x, y)
+
 
     def move_character():
-        # Add 1 to character's position (line) if right arrow is pressed
-        # Remove 1 to character's position (line) if left arrow is pressed
-        # Add 1 to character's position (column) if top arrow is pressed
-        # Remove 1 to charater's position (column) if bottom arrow is pressed
+        # If there's no wall:
+            # Add 1 to character's position (line) if right arrow is pressed
+            # Remove 1 to character's position (line) if left arrow is pressed
+            # Add 1 to character's position (column) if top arrow is pressed
+            # Remove 1 to charater's position (column) if bottom arrow is pressed
+        # Else:
+            # character doesn't move
         pass
 
     def get_object():
@@ -81,7 +93,8 @@ class Gardien(Character):
     """ Create a keeper with a fixed position """
     def __init__(self):
         self.name = "Keeper"
-        self.place = Position(14, 7) # Fixed position
+        self.position = Position.fixed_position(14, 7)
+        # self.picture = # Add path to keeper's picture
 
 
 class Objects():
@@ -91,16 +104,19 @@ class Objects():
         self.name = name
         # self.picture = add path to Objects' picture
 
+    def positionner(self):
+        self.ligne = self.position[0]
+        self.colonne = self.position[1]
+        tab[self.ligne][self.colonne] = self.name
+
+
 
 def main():
     lab = Grid()
     print(lab.tab)
-    lab.tab[3][4] = "M"
-    print(lab.tab)
     keeper = Gardien()
     print(keeper.name)
-    keeper.position = keeper.name
-    print(lab.tab)
+    print(keeper.position)
     perso1 = MacGyver()
     print(perso1.name)
     print(perso1.position)
