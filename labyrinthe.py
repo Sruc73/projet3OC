@@ -11,9 +11,9 @@ class Grid:
     ROWS = 15
     COLS = 15
 
-    def __init__(self, struct_file):
+    def __init__(self, struct):
         """Constructor for a 15X15 grid"""
-        self.file = struct_file
+        self.file = struct
 
     def build_lab(self):
         """Method to create a level thanks to file structure.txt"""
@@ -33,6 +33,14 @@ class Grid:
 				level_struct.append(level_line)
 			# Save the structure
 			self.structure = level_struct
+
+        def display_lab(self):
+            """Diplay the level with the structure send by method build_lab"""
+            #Pictures
+            wall = "data/wall.jpg"
+            floor = "data/floor.jpg"
+
+
 
 
     def is_free(self, row, col):
@@ -76,18 +84,23 @@ class Character():
         self.picture = picture
         # self.position = Position.grid_coord
 
-    def put_character_in_lab(self):
-        list[[a],[b]]
+    def put_character_in_lab(self, position):
+        self.case_x = position[0]
+        self.case_y = position[1]
 
         pass
 
 
-    def move_character():
+    def move_character(self, direction):
         # If there's no wall:
-            # Add 1 to character's position (line) if right arrow is pressed
-            # Remove 1 to character's position (line) if left arrow is pressed
-            # Add 1 to character's position (column) if top arrow is pressed
-            # Remove 1 to charater's position (column) if bottom arrow is pressed
+        if direction == "right"
+            if structure != "#":
+
+
+            # Add 1 to character's position (line) if right arrow is pressed si pas de mur devant
+            # Remove 1 to character's position (line) if left arrow is pressed si pas de mur devant
+            # Add 1 to character's position (column) if top arrow is pressed si pas de mur devant
+            # Remove 1 to charater's position (column) if bottom arrow is pressed si pas de mur devant
         # Else:
             # character doesn't move
         pass
@@ -131,7 +144,6 @@ class Objects():
 
 def main():
     lab = Grid()
-    lab.build_lab(structure.txt)
     keeper = Keeper()
     print(keeper.name)
     print(keeper.position)
