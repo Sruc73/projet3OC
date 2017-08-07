@@ -12,9 +12,29 @@ class Grid:
     COLS = 15
     wall = "*" # open("structure.txt", "r")
 
-    def __init__(self):
+    def __init__(self, struct_file):
         """Constructor for a 15X15 grid"""
-        self.tab = [[self.wall]  * self.ROWS for y in range(self.COLS)]
+        self.file = struct_file
+
+    def built_lab(self):
+        """Method to create a level thanks to file structure.txt"""
+		#Open file
+		with open(self.file, "r") as struct_file:
+            level_struct = []
+			#lines of the file
+			for line in struct_file:
+				level_line = []
+				#sprites in the file
+				for sprite in line:
+					#ignore "\n"
+					if sprite != '\n':
+						# Add sprite to the line
+						level_line.append(sprite)
+				# Add the line to the level structure
+				level_struct.append(level_line)
+			# Save the structure
+			self.structure = level_struct
+
 
     def is_free(self, row, col):
         """ To know if a box is empty or not """
@@ -43,7 +63,7 @@ class Position():
         return (fixed_rows, fixed_cols)
 
     def random_position(a, b):
-        """ Return a random tuple (x, y) with x = row number and y = col number
+        """ Return a random tuple(x, y) with x = row number and y = col number
             to set an object in the grid """
         rand_x = randint(a, b)
         rand_y = randint(a, b)
@@ -58,9 +78,9 @@ class Character():
         # self.position = Position.grid_coord
 
     def put_character_in_lab(self):
-        x = position[0]
-        y = position[1]
-        pos = (x, y)
+        list[[a],[b]]
+
+        pass
 
 
     def move_character():
@@ -107,13 +127,12 @@ class Objects():
     def positionner(self):
         self.ligne = self.position[0]
         self.colonne = self.position[1]
-        tab[self.ligne][self.colonne] = self.name
 
 
 
 def main():
     lab = Grid()
-    print(lab.tab)
+    lab.built_lab(structure.txt)
     keeper = Gardien()
     print(keeper.name)
     print(keeper.position)
