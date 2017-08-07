@@ -3,7 +3,7 @@
 
 import tkinter as tk
 from random import randint
-import os
+
 
 
 class Grid:
