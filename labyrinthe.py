@@ -10,13 +10,12 @@ class Grid:
 
     ROWS = 15
     COLS = 15
-    wall = "*" # open("structure.txt", "r")
 
     def __init__(self, struct_file):
         """Constructor for a 15X15 grid"""
         self.file = struct_file
 
-    def built_lab(self):
+    def build_lab(self):
         """Method to create a level thanks to file structure.txt"""
 		#Open file
 		with open(self.file, "r") as struct_file:
