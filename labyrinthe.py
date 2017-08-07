@@ -101,19 +101,19 @@ class MacGyver(Character):
 
     """ Create the character MacGyver with a random position
         when the game start """
-    def __init__(self):
+    def __init__(self, picture):
         self.name = "Mc Gyver"
         self.position = Position.random_position(0, 14)
-        # self.picture = Add path to MacGyver's picture
+        self.macgyver_picture = "data/macgyver.png"
 
 
-class Gardien(Character):
+class Keeper(Character):
 
     """ Create a keeper with a fixed position """
     def __init__(self):
         self.name = "Keeper"
         self.position = Position.fixed_position(14, 7)
-        # self.picture = # Add path to keeper's picture
+        self.keeper_picture = "data/murdoc.png"
 
 
 class Objects():
@@ -131,8 +131,8 @@ class Objects():
 
 def main():
     lab = Grid()
-    lab.built_lab(structure.txt)
-    keeper = Gardien()
+    lab.build_lab(structure.txt)
+    keeper = Keeper()
     print(keeper.name)
     print(keeper.position)
     perso1 = MacGyver()
