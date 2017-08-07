@@ -93,17 +93,28 @@ class Character():
 
     def move_character(self, direction):
         # If there's no wall:
-        if direction == "right"
-            if structure != "#":
-
-
-            # Add 1 to character's position (line) if right arrow is pressed si pas de mur devant
-            # Remove 1 to character's position (line) if left arrow is pressed si pas de mur devant
-            # Add 1 to character's position (column) if top arrow is pressed si pas de mur devant
-            # Remove 1 to charater's position (column) if bottom arrow is pressed si pas de mur devant
-        # Else:
-            # character doesn't move
-        pass
+        # Add 1 to character's position (line) if right arrow
+        if direction == "right":
+            if self.case_x < ROWS:
+                if self.structure[self.case_x][self.case_y] != "#":
+                    # Move to the right
+                    self.case_x += 1
+        # Remove 1 to character's position (line) if left arrow is pressed
+        if direction == "left":
+            if self.case_x > 0:
+                if self.structure[self.case_x][self.case_y] != "#":
+                    # Move to the left
+                    self.case_x -= 1
+            # Add 1 to character's position (column) if top arrow is pressed
+            if direction == "up":
+                if self.case_y > 0:
+                    if self.structure[self.case_x][self.case_y] != "#"
+                        self.case_y += 1
+            # Remove 1 to charater's position (column) if bottom arrow pressed
+            if direction == "down":
+                if self.case_y < COLS:
+                    if self.structure[self.case_x][self.case_y] != "#":
+                        self.case_y -= 1
 
     def get_object():
         """ Add all items picked up to make the syringe """
