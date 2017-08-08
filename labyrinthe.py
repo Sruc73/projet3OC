@@ -42,11 +42,10 @@ class Grid:
             floor = "data/floor.jpg"
 
 
-    def empty_boxes(self):
-        """ Added empty boxes from level_struct in list empty_b"""
-        empty_b = [(i, j) for i in range(0, len(level_struct)) \
-        for j in range(0, COLS) if level_struct[i][j] == " "]
-        import pdb; pdb.set_trace()
+        def empty_boxes(self):
+            """ Added empty boxes from level_struct in list empty_b"""
+            empty_b = [(i, j) for i in range(0, len(level_struct)) \
+            for j in range(0, COLS) if level_struct[i][j] == " "]
 
 
 class Position():
