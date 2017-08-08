@@ -41,22 +41,6 @@ class Grid:
             floor = "data/floor.jpg"
 
 
-
-
-    def is_free(self, row, col):
-        """ To know if a box is empty or not """
-        # for i in range(self.rows):
-        #     if self.tab[row][col] == " ":
-        #         return True
-        #     else:
-        #         return False
-
-        # Parcourir le labyrinthe et créer un tuple pour chaque case sur laquelle
-        # il n'y a pas d'objet positionné dessus les stocker dans une liste
-        # et comparer les coordonnées des objets/perso aux tuples de la liste
-        # afin de savoir si on peut le placer ici
-        # Autrement, attribuer une nouvelle case à l'objet
-
     def empty_boxes(self):
         """ Added empty boxes from level_struct in list empty_b"""
 
