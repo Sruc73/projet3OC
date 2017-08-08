@@ -35,7 +35,7 @@ class Grid:
 			self.structure = level_struct
 
         def display_lab(self):
-            """Diplay the level with the structure send by method build_lab"""
+            """Diplay the labyrinthe with structure send by method build_lab"""
             #Pictures
             wall = "data/wall.jpg"
             floor = "data/floor.jpg"
@@ -57,6 +57,12 @@ class Grid:
         # afin de savoir si on peut le placer ici
         # Autrement, attribuer une nouvelle case à l'objet
 
+    def empty_boxes(self):
+        """ Added empty boxes from level_struct in list empty_b"""
+
+        empty_b = [(i, j) for i in range(0, len(level_struct)) \
+        for j in range(0, COLS) if level_struct[i][j] == " "]
+
 
 class Position():
     """ Return the position in the grid """
@@ -72,6 +78,7 @@ class Position():
     def random_position(a, b):
         """ Return a random tuple(x, y) with x = row number and y = col number
             to set an object in the grid """
+        # Ajouter le controle que la case soit bien libre
         rand_x = randint(a, b)
         rand_y = randint(a, b)
         return (rand_x, rand_y)
