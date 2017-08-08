@@ -14,6 +14,7 @@ class Grid:
     def __init__(self, struct):
         """Constructor for a 15X15 grid"""
         self.file = struct
+        self.structure = 0
 
     def build_lab(self):
         """Method to create a level thanks to file structure.txt"""
@@ -43,9 +44,9 @@ class Grid:
 
     def empty_boxes(self):
         """ Added empty boxes from level_struct in list empty_b"""
-
         empty_b = [(i, j) for i in range(0, len(level_struct)) \
         for j in range(0, COLS) if level_struct[i][j] == " "]
+        import pdb; pdb.set_trace()
 
 
 class Position():
@@ -55,6 +56,13 @@ class Position():
         self.cols = cols
 
     def fixed_position(row, col):
+        #Voir pour mettre un a (pour arrivée) dans la structure du labyrinthe
+        #afin de pouvoir placer Murdoc en position fixe à cet endroit
+        #en cas de nouveaux niveaux
+        #Dans ce cas:
+
+        #return [(i, j) for i in range(O, len(level_struct)) \
+        # for j in range(0, COLS) if level_struct[i][j] == "a"]
         fixed_rows = row
         fixed_cols = col
         return (fixed_rows, fixed_cols)
