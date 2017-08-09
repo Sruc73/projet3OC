@@ -85,17 +85,19 @@ class Position():
         # rand_y = rand_position[1]
         # return (rand_x, rand_y)
 
-    def put_in_lab(self, position):
-        pass
+    def put_in_lab(self, x, y):
 
+        self.case_x = x
+        self.case_y = y
+        level_struct[self.x][self.y] = Character.picture
 
 
 
 class Character():
 
-    def __init__(self):
+    def __init__(self, name, picture):
         self.name = name
-        self.picture = "data/macgyver.png"
+        self.picture = picture
 
     def move_character(self, direction):
         # If there's no wall:
