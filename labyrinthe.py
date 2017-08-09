@@ -8,8 +8,8 @@ from random import randint
 
 class Grid:
 
-    ROWS = 15
-    COLS = 15
+    ROWS = 14
+    COLS = 14
 
     def __init__(self, struct):
         """Constructor for a 15X15 grid"""
@@ -79,14 +79,13 @@ class Character():
 
     def __init__(self):
         self.name = name
-        self.picture = picture
-        # self.position = Position.grid_coord
+        self.picture = "data/macgyver.png"
 
-    def put_character_in_lab(self, position):
+
+    def put_in_lab(self, position):
         self.case_x = position[0]
         self.case_y = position[1]
 
-        pass
 
 
     def move_character(self, direction):
@@ -129,11 +128,11 @@ class MacGyver(Character):
         self.macgyver_picture = "data/macgyver.png"
 
 
-class Keeper(Character):
+class Lab_keeper(Character):
 
     """ Create a keeper with a fixed position """
     def __init__(self):
-        self.name = "Keeper"
+        self.name = "Murdoc"
         self.position = Position.fixed_position(14, 7)
         self.keeper_picture = "data/murdoc.png"
 
@@ -149,16 +148,35 @@ class Objects():
         self.ligne = self.position[0]
         self.colonne = self.position[1]
 
+# pygame.init()
+#
+# NUMBER_OF_SPRITE = 15 # There's 15 sprite per line
+# SPRITE_SIZE = 30 # 1 sprite = 30 pixels
+#
+# SIZE = NUMBER_OF_SPRITE * SPRITE_SIZE
+# # Created the window for game
+# size = pygame.display.set_mode(size)
+
+# Déplacement madgyver
+# if event.key == K_RIGHT:
+#    macgyver.move_character("right")
+# elif event.key == K_LEFT:
+#   macgyver.move_character("left")
+# elif event.key == K_DOWN:
+#   macgyver.move_character("down")
+# elif event.key == K_UP:
+#   macgyver.move_character("up")
 
 
 def main():
     lab = Grid()
-    keeper = Keeper()
-    print(keeper.name)
-    print(keeper.position)
+    keeper = Lab_keeper()
+    print(Lab_keeper.name)
+    print(Lab_keeper.position)
     perso1 = MacGyver()
     print(perso1.name)
     print(perso1.position)
+    perso1.put_in_lab(perso1.position)
     aiguille = Objects("aiguille")
     print(aiguille.name)
     print(aiguille.position)
