@@ -16,24 +16,24 @@ class Grid:
         self.file = struct
         self.structure = 0
 
-    # def build_lab(self):
-    #     """Method to create a level thanks to file structure.txt"""
-	# 	#Open file
-	# 	with open(self.file, "r") as struct_file:
-    #         level_struct = []
-	# 		#lines of the file
-	# 		for line in struct_file:
-	# 			level_line = []
-	# 			#sprites in file
-	# 			for sprite in line:
-	# 				#ignore "\n"
-	# 				if sprite != '\n':
-	# 					# Add sprite to the line
-	# 					level_line.append(sprite)
-	# 			# Add the line to the level structure
-	# 			level_struct.append(level_line)
-	# 		# Save the structure
-	# 		self.structure = level_struct
+    def build_lab(self):
+        """Method to create a level thanks to file structure.txt"""
+		#Open file
+		with open(self.file, "r") as struct_file:
+            level_struct = []
+			#lines of the file
+			for line in struct_file:
+				level_line = []
+				#sprites in file
+				for sprite in line:
+					#ignore "\n"
+					if sprite != '\n':
+						# Add sprite to the line
+						level_line.append(sprite)
+				# Add the line to the level structure
+				level_struct.append(level_line)
+			# Save the structure
+			self.structure = level_struct
 
         def display_lab(self):
             """Diplay the labyrinthe with structure send by method build_lab"""
