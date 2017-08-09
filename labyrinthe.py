@@ -2,7 +2,7 @@
 # coding: utf-8
 
 import pygame
-from random import randint
+from random import choice, randint
 
 
 
@@ -62,6 +62,7 @@ class Position():
 
         #return [(i, j) for i in range(O, len(level_struct)) \
         # for j in range(0, COLS) if level_struct[i][j] == "a"]
+
         fixed_rows = row
         fixed_cols = col
         return (fixed_rows, fixed_cols)
@@ -73,6 +74,21 @@ class Position():
         rand_x = randint(a, b)
         rand_y = randint(a, b)
         return (rand_x, rand_y)
+        # Seconde solution en tirant au sort dans la liste empty_boxes
+        # rand_position = choice(empty_boxes)
+        # # Je supprime de la liste empty_boxes la valeur tirée au sort au-dessus
+        # for i in empty_boxes:
+        #     if i == rand_position:
+        #         empty_boxes.remove(rand_position)
+        # # J'affecte chaque valeur du tuple à rand_x et rand_y
+        # rand_x = rand_position[0]
+        # rand_y = rand_position[1]
+        # return (rand_x, rand_y)
+
+    def put_in_lab(self, position):
+        pass
+
+
 
 
 class Character():
@@ -80,13 +96,6 @@ class Character():
     def __init__(self):
         self.name = name
         self.picture = "data/macgyver.png"
-
-
-    def put_in_lab(self, position):
-        self.case_x = position[0]
-        self.case_y = position[1]
-
-
 
     def move_character(self, direction):
         # If there's no wall:
@@ -105,7 +114,7 @@ class Character():
             # Add 1 to character's position (column) if top arrow is pressed
             if direction == "up":
                 if self.case_y > 0:
-                    if self.structure[self.case_x][self.case_y] != "#"
+                    if self.structure[self.case_x][self.case_y] != "#":
                         self.case_y += 1
             # Remove 1 to charater's position (column) if bottom arrow pressed
             if direction == "down":
