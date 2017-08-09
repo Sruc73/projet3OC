@@ -114,30 +114,30 @@ class MacGyver(Character):
         self.macgyver_picture = "data/macgyver.png"
 
 
-        def move_character(self, direction):
-            # If there's no wall:
-            # Add 1 to character's position (line) if right arrow
-            if direction == "right":
-                if self.case_x < ROWS:
-                    if self.structure[self.case_x][self.case_y] != "#":
-                        # Move to the right
-                        self.case_x += 1
-            # Remove 1 to character's position (line) if left arrow is pressed
-            if direction == "left":
-                if self.case_x > 0:
-                    if self.structure[self.case_x][self.case_y] != "#":
-                        # Move to the left
-                        self.case_x -= 1
-                # Add 1 to character's position (column) if top arrow is pressed
-                if direction == "up":
-                    if self.case_y > 0:
-                        if self.structure[self.case_x][self.case_y] != "#":
-                            self.case_y += 1
-                # Remove 1 to charater's position (column) if bottom arrow pressed
-                if direction == "down":
-                    if self.case_y < COLS:
-                        if self.structure[self.case_x][self.case_y] != "#":
-                            self.case_y -= 1
+    def move_character(self, direction):
+        # If there's no wall:
+        # Add 1 to character's position (line) if right arrow
+        if direction == "right":
+            if self.case_x < ROWS:
+                if self.structure[self.case_x][self.case_y] != "#":
+                    # Move to the right
+                    self.case_x += 1
+        # Remove 1 to character's position (line) if left arrow is pressed
+        if direction == "left":
+            if self.case_x > 0:
+                if self.structure[self.case_x][self.case_y] != "#":
+                    # Move to the left
+                    self.case_x -= 1
+        # Add 1 to character's position (column) if top arrow is pressed
+        if direction == "up":
+            if self.case_y > 0:
+                if self.structure[self.case_x][self.case_y] != "#":
+                    self.case_y += 1
+        # Remove 1 to charater's position (column) if bottom arrow pressed
+        if direction == "down":
+            if self.case_y < COLS:
+                if self.structure[self.case_x][self.case_y] != "#":
+                    self.case_y -= 1
 
 
 class Lab_keeper(Character):
