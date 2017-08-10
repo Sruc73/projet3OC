@@ -156,7 +156,7 @@ class Lab_keeper(Character):
     def __init__(self):
         self.name = "Murdoc"
         self.position = Position.fixed_position(14, 7) # Voir pour modifier
-        # la position fixe et la déterminer par la position de la lettre a dans
+        # la position fixe et la déterminer par la position de la lettre k dans
         # la structure du labyrinthe
         self.keeper_picture = "data/murdoc.png"
 
@@ -177,7 +177,7 @@ class Objects():
 
 # pygame.init()
 #
-# NUMBER_OF_SPRITE = 15 # There's 15 sprite per line
+# NUMBER_OF_SPRITE = 15 # There's 15 sprites/line
 # SPRITE_SIZE = 30 # 1 sprite = 30 pixels
 #
 # SIZE = NUMBER_OF_SPRITE * SPRITE_SIZE
@@ -185,12 +185,16 @@ class Objects():
 # size = pygame.display.set_mode(size)
 
 # Déplacement madgyver
+# if right arrow pressed
 # if event.key == K_RIGHT:
 #    macgyver.move_character("right")
+# else if left arrow pressed
 # elif event.key == K_LEFT:
 #   macgyver.move_character("left")
+# else if down arrow pressed
 # elif event.key == K_DOWN:
 #   macgyver.move_character("down")
+# else if up arrow pressed
 # elif event.key == K_UP:
 #   macgyver.move_character("up")
 
