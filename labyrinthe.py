@@ -115,6 +115,7 @@ class MacGyver(Character):
 
 
     def move_character(self, direction):
+        """ This method allows to move the character """
         # If there's no wall:
         # Add 1 to character's position (line) if right arrow
         if direction == "right":
@@ -145,20 +146,25 @@ class Lab_keeper(Character):
     """ Create a keeper with a fixed position """
     def __init__(self):
         self.name = "Murdoc"
-        self.position = Position.fixed_position(14, 7)
+        self.position = Position.fixed_position(14, 7) # Voir pour modifier
+        # la position fixe et la déterminer par la position de la lettre a dans
+        # la structure du labyrinthe
         self.keeper_picture = "data/murdoc.png"
 
 
 class Objects():
 
-    def __init__(self, name):
-        self.position = Position.random_position(0, 14)
+    def __init__(self, name, picture):
+        self.position = Position.random_position(0, 14) # Gérer la position aléatoire
+        # de la même manière que macgyver en tirant au sort une position dans la liste
+        # empty_boxes
         self.name = name
-        # self.picture = add path to Objects' picture
+        self.picture = picture
 
     def positionner(self):
         self.ligne = self.position[0]
         self.colonne = self.position[1]
+
 
 # pygame.init()
 #
