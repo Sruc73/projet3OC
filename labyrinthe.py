@@ -204,12 +204,15 @@ def main():
     keeper = Lab_keeper()
     print(keeper.name)
     print(keeper.position)
+
     perso1 = MacGyver("data/macgyver.png")
     print(perso1.name)
     print(perso1.position)
+
     aiguille = Objects("aiguille", )
     print(aiguille.name)
     print(aiguille.position)
+    
     Grid.put_in_lab(perso1, keeper, aiguille)
     print(Grid.LEVEL_STRUCT)
 
