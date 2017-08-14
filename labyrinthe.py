@@ -1,15 +1,15 @@
 #! /usr/bin/env python3
 # coding: utf-8
 
-import pygame
+import pygame as pg
 from random import choice
 
 
 
 class Grid:
 
-    ROWS = 15
-    COLS = 15
+    ROWS = 0
+    COLS = 0
     LEVEL_STRUCT = []
 
     def __init__(self, struct):
@@ -26,11 +26,16 @@ class Grid:
 
     @classmethod
     def empty_boxes(cls):
-        import pdb; pdb.set_trace()
-        """ Added empty boxes from level_struct in list empty_b"""
-        empty_b = [(i, j) for i in range(0, cls.ROWS - 1) \
-        for j in range(0, cls.COLS - 1) if cls.LEVEL_STRUCT[i][j] == "."]
+        """ Added empty boxes from level_struct in list empty_b """
+        empty_b = []
+        for i in range(cls.ROWS):
+            for j in range(cls.COLS):
+                if cls.LEVEL_STRUCT[i][j] == ".":
+                    empty_b.append((i, j))
+        # empty_b = [(i, j) for i in range(0, cls.ROWS - 1) \
+        # for j in range(0, cls.COLS - 1) if cls.LEVEL_STRUCT[i][j] == "."]
         return empty_b
+
 
 
     def build_lab(self):
@@ -38,7 +43,7 @@ class Grid:
 		#Open file
         with open(self.file, "r") as struct_file:
 			#lines of the file
-            for line in struct_file:
+            for index, line in enumerate(struct_file):
                 level_line = []
 				#sprites in file
                 for sprite in line:
@@ -46,10 +51,12 @@ class Grid:
                     if sprite != '\n':
 						# Add sprite to the line
                         level_line.append(sprite)
+                    # Get number of signs to get number of columns
+                    if index == 0:
+                        Grid.COLS = len(line) -1
+                Grid.ROWS += 1
 				# Add the line to the level structure
                 self.LEVEL_STRUCT.append(level_line)
-			# Save the structure
-            self.structure = self.LEVEL_STRUCT
 
         def display_lab(self):
             """Diplay the labyrinthe with structure send by method build_lab"""
@@ -58,28 +65,18 @@ class Grid:
             floor = "data/floor.jpg"
 
 
-
-
-
-
 class Position():
     """ Return the position in the grid """
     def __init__(self, rows, cols):
         self.rows = rows
         self.cols = cols
 
-    def fixed_position(row, col):
-        #Voir pour mettre un a (pour arrivée) dans la structure du labyrinthe
-        #afin de pouvoir placer Murdoc en position fixe à cet endroit
-        #en cas de nouveaux niveaux
-        #Dans ce cas:
-
-        #return [(i, j) for i in range(O, len(level_struct)) \
-        # for j in range(0, COLS) if level_struct[i][j] == "a"]
-
-        fixed_rows = row
-        fixed_cols = col
-        return (fixed_rows, fixed_cols)
+    def fixed_position(x, y):
+        # parcourir la structure pour trouver la position de la lettre k
+        # afin d'y mettre murdoc
+        x = x
+        y = y
+        return (x, y)
 
     def random_position():
         """ Return a random tuple(x, y) with x = row number and y = col number
@@ -90,13 +87,13 @@ class Position():
         # return (rand_x, rand_y)
         # Seconde solution en tirant au sort dans la liste empty_boxes
 
-        # # Je supprime de la liste empty_boxes la valeur tirée au sort au-dessus
+        # Je supprime de la liste empty_boxes la valeur tirée au sort au-dessus
         empty_boxes = Grid.empty_boxes()
         rand_position = choice(empty_boxes)
         for i in empty_boxes:
             if i == rand_position:
                 empty_boxes.remove(rand_position)
-        # J'affecte chaque valeur du tuple à rand_x et rand_y
+        # Set tuple values to rand_x and rand_y
         rand_x = rand_position[0]
         rand_y = rand_position[1]
         return (rand_x, rand_y)
@@ -155,18 +152,14 @@ class Lab_keeper(Character):
     """ Create a keeper with a fixed position """
     def __init__(self):
         self.name = "Murdoc"
-        self.position = Position.fixed_position(14, 7) # Voir pour modifier
-        # la position fixe et la déterminer par la position de la lettre k dans
-        # la structure du labyrinthe
+        self.position = Position.fixed_position(13, 14)
         self.keeper_picture = "data/murdoc.png"
 
 
 class Objects():
 
     def __init__(self, name):
-        self.position = Position.random_position() # Gérer la position aléatoire
-        # de la même manière que macgyver en tirant au sort une position dans la liste
-        # empty_boxes
+        self.position = Position.random_position()
         self.name = name
         #self.picture = picture
 
@@ -175,14 +168,14 @@ class Objects():
         self.colonne = self.position[1]
 
 
-# pygame.init()
+# pg.init()
 #
 # NUMBER_OF_SPRITE = 15 # There's 15 sprites/line
 # SPRITE_SIZE = 30 # 1 sprite = 30 pixels
 #
 # SIZE = NUMBER_OF_SPRITE * SPRITE_SIZE
 # # Created the window for game
-# size = pygame.display.set_mode(size)
+# size = pg.display.set_mode(size)
 
 # Déplacement madgyver
 # if right arrow pressed
@@ -209,10 +202,10 @@ def main():
     print(perso1.name)
     print(perso1.position)
 
-    aiguille = Objects("aiguille", )
+    aiguille = Objects("aiguille")
+
     print(aiguille.name)
     print(aiguille.position)
-    
     Grid.put_in_lab(perso1, keeper, aiguille)
     print(Grid.LEVEL_STRUCT)
 
