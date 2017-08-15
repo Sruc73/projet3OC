@@ -73,8 +73,11 @@ class Position():
         self.cols = cols
 
     def fixed_position():
-        # parcourir la structure pour trouver la position de la lettre k
-        # afin d'y mettre murdoc
+        """
+            Browse the structure to find the letter k's position
+            to put Murdoc in lab
+        """
+
         lab_exit = []
         for i in range(Grid.ROWS):
             print(i)
