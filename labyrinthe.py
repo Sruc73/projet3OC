@@ -3,8 +3,6 @@
 
 import pygame as pg
 from random import choice
-from tkinter import *
-
 
 
 class Grid:
@@ -80,9 +78,7 @@ class Position():
 
         lab_exit = []
         for i in range(Grid.ROWS):
-            print(i)
             for j in range(Grid.COLS):
-                print(j)
                 if Grid.LEVEL_STRUCT[i][j] == "k":
                     lab_exit.append((i, j))
         # Set tuple's values to fixed_x and fixed_y
@@ -197,15 +193,6 @@ class Objects():
 # else if up arrow pressed
 # elif event.key == K_UP:
 #   macgyver.move_character("up")
-
-#Create a window
-window = Tk()
-window.title("MacGyver's labyrinthe")
-
-canvas = Canvas(window, width = 450, height = 450, bd = 0, bg = "red")
-canvas.pack(padx=10, pady=10)
-window.mainloop()
-
 
 
 def main():
