@@ -3,6 +3,7 @@
 
 import pygame as pg
 from random import choice
+from tkinter import *
 
 
 
@@ -32,8 +33,8 @@ class Grid:
             for j in range(cls.COLS):
                 if cls.LEVEL_STRUCT[i][j] == ".":
                     empty_b.append((i, j))
-        # empty_b = [(i, j) for i in range(0, cls.ROWS - 1) \
-        # for j in range(0, cls.COLS - 1) if cls.LEVEL_STRUCT[i][j] == "."]
+        # empty_b = [(i, j) for i in range(0, 15) \
+        # for j in range(0, 15) if cls.LEVEL_STRUCT[i][j] == "."]
         return empty_b
 
 
@@ -58,11 +59,11 @@ class Grid:
 				# Add the line to the level structure
                 self.LEVEL_STRUCT.append(level_line)
 
-        def display_lab(self):
-            """Diplay the labyrinthe with structure send by method build_lab"""
-            #Pictures
-            wall = "data/wall.jpg"
-            floor = "data/floor.jpg"
+    def display_lab(self):
+        """Diplay the labyrinthe with structure send by method build_lab"""
+        #Pictures
+        wall = "data/wall.jpg"
+        floor = "data/floor.jpg"
 
 
 class Position():
@@ -71,12 +72,20 @@ class Position():
         self.rows = rows
         self.cols = cols
 
-    def fixed_position(x, y):
+    def fixed_position():
         # parcourir la structure pour trouver la position de la lettre k
         # afin d'y mettre murdoc
-        x = x
-        y = y
-        return (x, y)
+        lab_exit = []
+        for i in range(Grid.ROWS):
+            print(i)
+            for j in range(Grid.COLS):
+                print(j)
+                if Grid.LEVEL_STRUCT[i][j] == "k":
+                    lab_exit.append((i, j))
+
+        fixed_x = lab_exit[0][0]
+        fixed_y = lab_exit[0][1]
+        return(fixed_x, fixed_y)
 
     def random_position():
         """ Return a random tuple(x, y) with x = row number and y = col number
@@ -87,7 +96,7 @@ class Position():
         # return (rand_x, rand_y)
         # Seconde solution en tirant au sort dans la liste empty_boxes
 
-        # Je supprime de la liste empty_boxes la valeur tirée au sort au-dessus
+        # Removes random value from empty_boxes list
         empty_boxes = Grid.empty_boxes()
         rand_position = choice(empty_boxes)
         for i in empty_boxes:
@@ -152,7 +161,7 @@ class Lab_keeper(Character):
     """ Create a keeper with a fixed position """
     def __init__(self):
         self.name = "Murdoc"
-        self.position = Position.fixed_position(13, 14)
+        self.position = Position.fixed_position()
         self.keeper_picture = "data/murdoc.png"
 
 
@@ -190,6 +199,18 @@ class Objects():
 # else if up arrow pressed
 # elif event.key == K_UP:
 #   macgyver.move_character("up")
+
+# Create a window
+# window = Tk()
+# window.title = "MacGyver's labyrinthe"
+#
+# SPRITES = 15
+# SIZE = 15 * 30
+# Canevas = Canevas(window, width = SIZE, height = SIZE, bg = "white")
+# Canevas.focus_set()
+# Canevas.pack()
+# window.mainloop()
+
 
 
 def main():
