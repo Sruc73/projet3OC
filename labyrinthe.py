@@ -85,7 +85,7 @@ class Position():
                 print(j)
                 if Grid.LEVEL_STRUCT[i][j] == "k":
                     lab_exit.append((i, j))
-
+        # Set tuple's values to fixed_x and fixed_y
         fixed_x = lab_exit[0][0]
         fixed_y = lab_exit[0][1]
         return(fixed_x, fixed_y)
@@ -93,11 +93,6 @@ class Position():
     def random_position():
         """ Return a random tuple(x, y) with x = row number and y = col number
             to set an object in the grid """
-        # Ajouter le controle que la case soit bien libre
-        # rand_x = randint(a, b)
-        # rand_y = randint(a, b)
-        # return (rand_x, rand_y)
-        # Seconde solution en tirant au sort dans la liste empty_boxes
 
         # Removes random value from empty_boxes list
         empty_boxes = Grid.empty_boxes()
@@ -203,16 +198,13 @@ class Objects():
 # elif event.key == K_UP:
 #   macgyver.move_character("up")
 
-# Create a window
-# window = Tk()
-# window.title = "MacGyver's labyrinthe"
-#
-# SPRITES = 15
-# SIZE = 15 * 30
-# Canevas = Canevas(window, width = SIZE, height = SIZE, bg = "white")
-# Canevas.focus_set()
-# Canevas.pack()
-# window.mainloop()
+#Create a window
+window = Tk()
+window.title("MacGyver's labyrinthe")
+
+canvas = Canvas(window, width = 450, height = 450, bd = 0, bg = "red")
+canvas.pack(padx=10, pady=10)
+window.mainloop()
 
 
 
