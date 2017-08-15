@@ -171,28 +171,8 @@ class Objects():
         self.colonne = self.position[1]
 
 
-# pg.init()
-#
-# NUMBER_OF_SPRITE = 15 # There's 15 sprites/line
-# SPRITE_SIZE = 30 # 1 sprite = 30 pixels
-#
-# SIZE = NUMBER_OF_SPRITE * SPRITE_SIZE
-# # Created the window for game
-# size = pg.display.set_mode(size)
+pg.init()
 
-# Déplacement madgyver
-# if right arrow pressed
-# if event.key == K_RIGHT:
-#    macgyver.move_character("right")
-# else if left arrow pressed
-# elif event.key == K_LEFT:
-#   macgyver.move_character("left")
-# else if down arrow pressed
-# elif event.key == K_DOWN:
-#   macgyver.move_character("down")
-# else if up arrow pressed
-# elif event.key == K_UP:
-#   macgyver.move_character("up")
 
 
 def main():
@@ -206,9 +186,18 @@ def main():
     print(perso1.position)
 
     aiguille = Objects("aiguille")
+    ether = Objects("ether")
+    seringue = Objects("seringue")
 
     print(aiguille.name)
     print(aiguille.position)
+
+    print(ether.name)
+    print(ether.position)
+
+    print(seringue.name)
+    print(seringue.position)
+    
     Grid.put_in_lab(perso1, keeper, aiguille)
     print(Grid.LEVEL_STRUCT)
 
