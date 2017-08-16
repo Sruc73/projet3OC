@@ -2,54 +2,51 @@
 # coding: utf-8
 
 import pygame as pg
-#from pygame.locals import *
+from pygame.locals import *
 from random import choice
 import os
-import sys
 
 
-def load_image(name):
-    """
-        Load a picture
-    """
-    img_name = os.path.join('data', name)
-    picture = pg.image.load(img_name)
-    picture = picture.convert()
-    return picture, picture.get_rect()
 
-def run_game():
-    # Initialize and srt up screen
-    pg.init()
+# def load_image(name):
+#     """
+#         Load a picture
+#     """
+#     img_name = os.path.join('data', name)
+#     picture = pg.image.load(img_name)
+#     picture = picture.convert()
+#     return picture
 
-    # 15 sprites * 30 pixels
-    size = 15*30
-    speed = [2, 2]
-    black = (0, 0, 0)
-
-    window = pg.display.set_mode((size, size))
-    pg.display.set_caption("MacGyver's labyrinthe")
-
-    background = pg.Surface(window.get_size())
-    background = background.convert()
-    background.fill((250, 250, 250))
+# def run_game():
+#     # Initialize and srt up screen
+#     pg.init()
+#
+#     # 15 sprites * 30 pixels
+#     size = 15*30
+#     speed = [2, 2]
+#     black = (0, 0, 0)
+#
+#     window = pg.display.set_mode((size, size))
+#     pg.display.set_caption("MacGyver's labyrinthe")
+#
+#     background = pg.Surface(window.get_size())
+#     background = background.convert()
+#     background.fill((250, 250, 250))
 
     # Main loop
-
-    while True:
-        for event in pg.event.get():
-            # if user quit the game
-            if event.type == pg.QUIT:
-                sys.exit()
-            # if esc key is pressed
-            elif event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
-                return
-
-        window.blit(background, (0, 0))
-        pg.display.flip()
-
-
-
-
+    #
+    # while True:
+    #     for event in pg.event.get():
+    #         # if user quit the game
+    #         if event.type == pg.QUIT:
+    #             sys.exit()
+    #         # if esc key is pressed
+    #         elif event.type == pg.KEYDOWN:
+    #             if event.key == pg.K_ESCAPE:
+    #                 return
+    #
+    #     window.blit(background, (0, 0))
+    #     pg.display.flip()
 
 
 class Grid:
@@ -106,12 +103,12 @@ class Grid:
 
     def display_lab(self, window):
         """Diplay the labyrinthe with structure send by method build_lab"""
-        #Pictures
-        mcGyver = load_image('macgyver.png')
-        murdoc = load_image('murdoc.png')
-        wall = load_image('wall.jpg')
-        floor = load_image('floor.jpg')
-        ether = load_image('ether.png')
+        # Pictures
+        mcGyver = pg.image.load('data/macgyver.png')
+        murdoc = pg.image.load('data/murdoc.png')
+        wall = pg.image.load('data/wall.jpg')
+        floor = pg.image.load('data/floor.png')
+        ether = pg.image.load('data/ether.png')
 
         for line in self.LEVEL_STRUCT:
             for j in line:
@@ -178,7 +175,7 @@ class MacGyver(Character):
     def __init__(self, picture):
         self.name = "Mc Gyver"
         self.position = Position.random_position()
-        self.macgyver_picture = "data/macgyver.png"
+        self.macgyver_picture = pg.image.load('data/macgyver.png')
 
 
     def move_character(self, direction):
@@ -229,10 +226,35 @@ class Objects():
         self.colonne = self.position[1]
 
 
+# ----------------------------------------------------------------------
+    # Initialize and set up screen
+#-----------------------------------------------------------------------
+pg.init()
+
+size = 15*30
+screen_surface = pg.display.set_mode((size, size))
+# Window's title
+pg.display.set_caption("MacGyver's labyrinthe")
+
+pg.display.flip()
+#-----------------------------------------------------------------------
+# INFINITE LOOP
+#-----------------------------------------------------------------------
+
+continue_game = True
+while continue_game:
+    for event in pg.event.get():
+        if event.type == QUIT:
+            continue_game = False
+        elif event.type == KEYDOWN:
+            if event.key == K_RIGHT:
+                macgyver_rect.left += 1
+        elif event.type == KEYUP:
+            if event.key == K_RIGHT:
+                pass
+
 
 def main():
-
-    run_game()
 
     lab = Grid("structure.txt")
     keeper = Lab_keeper()
