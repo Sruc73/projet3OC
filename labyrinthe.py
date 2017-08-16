@@ -278,7 +278,7 @@ def main():
     print(seringue.name)
     print(seringue.position)
 
-    Grid.put_in_lab(perso1, keeper, aiguille)
+    Grid.put_in_lab(perso1, keeper, aiguille, ether, seringue)
     print(Grid.LEVEL_STRUCT)
 
 
