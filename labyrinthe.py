@@ -110,12 +110,19 @@ class Grid:
         floor = pg.image.load('data/floor.png')
         ether = pg.image.load('data/ether.png')
 
+        line_number = 0
         for line in self.LEVEL_STRUCT:
-            for j in line:
-                if j == "#":
-                    window.blit(wall)
-                elif j == ".":
-                    window.blit(floor)
+            sprite_number = 0
+            for sprite in line:
+                # sprite's position in pixels (1 sprite = 30 px)
+                x = line_number * 30
+                y = sprite_number * 30
+                if sprite == "#":
+                    screen_surface.blit(wall, (x, y))
+                elif sprite == ".":
+                    window.blit(floor, (x, y))
+                sprite_number += 1
+            line_number += 1
 
 
 
@@ -236,7 +243,10 @@ screen_surface = pg.display.set_mode((size, size))
 # Window's title
 pg.display.set_caption("MacGyver's labyrinthe")
 
-pg.display.flip()
+lab = Grid("structure.txt")
+lab.build_lab()
+lab.display_lab(screen_surface)
+
 #-----------------------------------------------------------------------
 # INFINITE LOOP
 #-----------------------------------------------------------------------
@@ -248,10 +258,15 @@ while continue_game:
             continue_game = False
         elif event.type == KEYDOWN:
             if event.key == K_RIGHT:
-                macgyver_rect.left += 1
-        elif event.type == KEYUP:
-            if event.key == K_RIGHT:
-                pass
+                mcGyver.move_character("right")
+            elif event.key == K_LEFT:
+                mcGyver.move_character("left")
+            elif event.key == K_UP:
+                mcGyver.move_character("up")
+            elif event.key == K_DOWN:
+                mcGyver.move_character("down")
+
+    pg.display.flip()
 
 
 def main():
