@@ -106,6 +106,7 @@ class Grid:
         # Pictures
         wall = pg.image.load('data/wall.jpg')
         floor = pg.image.load('data/floor.png')
+        murdoc = pg.image.load('data/murdoc.png')
 
         line_number = 0
         for line in self.LEVEL_STRUCT:
@@ -118,6 +119,8 @@ class Grid:
                     screen_surface.blit(wall, (x, y))
                 elif sprite == ".":
                     window.blit(floor, (x, y))
+                elif sprite == "k":
+                    window.blit(murdoc, (x, y))
                 sprite_number += 1
             line_number += 1
 
