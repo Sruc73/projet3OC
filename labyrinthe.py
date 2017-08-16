@@ -2,7 +2,9 @@
 # coding: utf-8
 
 import pygame as pg
+from pygame.locals import *
 from random import choice
+import os
 
 
 class Grid:
@@ -57,11 +59,22 @@ class Grid:
 				# Add the line to the level structure
                 self.LEVEL_STRUCT.append(level_line)
 
-    def display_lab(self):
+    def display_lab(self, window):
         """Diplay the labyrinthe with structure send by method build_lab"""
         #Pictures
-        wall = "data/wall.jpg"
-        floor = "data/floor.jpg"
+        mcGyver = pg.image.load(os.path.join('data', 'macgyver.png'))
+        murdoc = pg.image.load(os.path.join('data', 'murdoc.png'))
+        wall = pg.image.load(os.path.join('data', 'wall.jpg'))
+        floor = pg.image.load(os.path.join('data', 'floor.jpg'))
+        ether = pg.image.load(os.path.join('data', 'ether.png'))
+
+        for line in self.LEVEL_STRUCT:
+            for j in line:
+                if j == "#":
+                    window.blit(wall)
+                elif j == ".":
+                    window.blit(floor)
+
 
 
 class Position():
@@ -171,11 +184,57 @@ class Objects():
         self.colonne = self.position[1]
 
 
-pg.init()
-
-
 
 def main():
+
+    pg.init()
+
+    # 15 sprites * 30 pixels
+    size = 15*30
+    speed = [2, 2]
+    black = 0, 0, 0
+
+    window = pg.display.set_mode((size, size))
+    pg.display.set_caption("MacGyver's labyrinthe")
+
+    # fill background
+    background = pg.Surface(window.get_size())
+    background = background.convert()
+    background.fill((250, 250, 250))
+
+    # Blit everything in the window
+    window.blit(background, (0, 0))
+    pg.display.flip()
+
+    def load_image(name):
+        """
+            Load a picture
+        """
+        img_name = os.path.join('data', name)
+        picture = pg.image.load(img_name)
+        picture = picture.convert()
+        return picture, picture.get_rect()
+
+    mcGyver = load_image('macgyver.png')
+    murdoc = load_image('murdoc.png')
+    wall = load_image('wall.jpg')
+    floor = load_image('floor.jpg')
+    ether = load_image('ether.png')
+
+
+
+    while 1:
+        for event in pg.event.get():
+            # if user quit the game
+            if event.type == QUIT:
+                return
+            # if esc key is pressed
+            elif event.type == KEYDOWN and event.key == K_ESCAPE:
+                return
+
+        window.blit(background, (0, 0))
+        pg.display.flip()
+
     lab = Grid("structure.txt")
     keeper = Lab_keeper()
     print(keeper.name)
@@ -197,7 +256,7 @@ def main():
 
     print(seringue.name)
     print(seringue.position)
-    
+
     Grid.put_in_lab(perso1, keeper, aiguille)
     print(Grid.LEVEL_STRUCT)
 
