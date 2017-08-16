@@ -104,11 +104,8 @@ class Grid:
     def display_lab(self, window):
         """Diplay the labyrinthe with structure send by method build_lab"""
         # Pictures
-        mcGyver = pg.image.load('data/macgyver.png')
-        murdoc = pg.image.load('data/murdoc.png')
         wall = pg.image.load('data/wall.jpg')
         floor = pg.image.load('data/floor.png')
-        ether = pg.image.load('data/ether.png')
 
         line_number = 0
         for line in self.LEVEL_STRUCT:
@@ -243,9 +240,14 @@ screen_surface = pg.display.set_mode((size, size))
 # Window's title
 pg.display.set_caption("MacGyver's labyrinthe")
 
+# Create the labyrinthe
 lab = Grid("structure.txt")
 lab.build_lab()
 lab.display_lab(screen_surface)
+
+
+mcGyver = MacGyver("data/macgyver.png")
+keeper = Lab_keeper
 
 #-----------------------------------------------------------------------
 # INFINITE LOOP
