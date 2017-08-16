@@ -113,8 +113,8 @@ class Grid:
             sprite_number = 0
             for sprite in line:
                 # sprite's position in pixels (1 sprite = 30 px)
-                x = line_number * 30
-                y = sprite_number * 30
+                x = sprite_number * 30
+                y = line_number * 30
                 if sprite == "#":
                     screen_surface.blit(wall, (x, y))
                 elif sprite == ".":
