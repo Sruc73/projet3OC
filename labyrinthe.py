@@ -245,11 +245,16 @@ pg.display.set_caption("MacGyver's labyrinthe")
 
 # Create the labyrinthe
 lab = Grid("structure.txt")
+mcGyver = MacGyver("data/macgyver.png")
+aiguille = Objects("aiguille")
+seringue = Objects("seringue")
+ether = Objects("ether")
+
+Grid.put_in_lab(mcGyver, aiguille, seringue, ether)
 lab.build_lab()
 lab.display_lab(screen_surface)
 
 
-mcGyver = MacGyver("data/macgyver.png")
 keeper = Lab_keeper
 
 #-----------------------------------------------------------------------
@@ -271,36 +276,37 @@ while continue_game:
             elif event.key == K_DOWN:
                 mcGyver.move_character("down")
 
+    #screen_surface.blit(mcGyver.macgyver_picture)
     pg.display.flip()
 
 
-def main():
-
-    lab = Grid("structure.txt")
-    keeper = Lab_keeper()
-    print(keeper.name)
-    print(keeper.position)
-
-    perso1 = MacGyver("data/macgyver.png")
-    print(perso1.name)
-    print(perso1.position)
-
-    aiguille = Objects("aiguille")
-    ether = Objects("ether")
-    seringue = Objects("seringue")
-
-    print(aiguille.name)
-    print(aiguille.position)
-
-    print(ether.name)
-    print(ether.position)
-
-    print(seringue.name)
-    print(seringue.position)
-
-    Grid.put_in_lab(perso1, keeper, aiguille, ether, seringue)
-    print(Grid.LEVEL_STRUCT)
-
-
-if __name__ == "__main__":
-    main()
+# def main():
+#
+#     lab = Grid("structure.txt")
+#     keeper = Lab_keeper()
+#     print(keeper.name)
+#     print(keeper.position)
+#
+#     perso1 = MacGyver("data/macgyver.png")
+#     print(perso1.name)
+#     print(perso1.position)
+#
+#     aiguille = Objects("aiguille")
+#     ether = Objects("ether")
+#     seringue = Objects("seringue")
+#
+#     print(aiguille.name)
+#     print(aiguille.position)
+#
+#     print(ether.name)
+#     print(ether.position)
+#
+#     print(seringue.name)
+#     print(seringue.position)
+#
+#     Grid.put_in_lab(perso1, keeper, aiguille, ether, seringue)
+#     print(Grid.LEVEL_STRUCT)
+#
+#
+# if __name__ == "__main__":
+#     main()
