@@ -8,45 +8,14 @@ import os
 
 
 
-# def load_image(name):
-#     """
-#         Load a picture
-#     """
-#     img_name = os.path.join('data', name)
-#     picture = pg.image.load(img_name)
-#     picture = picture.convert()
-#     return picture
-
-# def run_game():
-#     # Initialize and srt up screen
-#     pg.init()
-#
-#     # 15 sprites * 30 pixels
-#     size = 15*30
-#     speed = [2, 2]
-#     black = (0, 0, 0)
-#
-#     window = pg.display.set_mode((size, size))
-#     pg.display.set_caption("MacGyver's labyrinthe")
-#
-#     background = pg.Surface(window.get_size())
-#     background = background.convert()
-#     background.fill((250, 250, 250))
-
-    # Main loop
-    #
-    # while True:
-    #     for event in pg.event.get():
-    #         # if user quit the game
-    #         if event.type == pg.QUIT:
-    #             sys.exit()
-    #         # if esc key is pressed
-    #         elif event.type == pg.KEYDOWN:
-    #             if event.key == pg.K_ESCAPE:
-    #                 return
-    #
-    #     window.blit(background, (0, 0))
-    #     pg.display.flip()
+def load_image(name):
+    """
+        Load a picture
+    """
+    img_name = os.path.join('data', name)
+    picture = pg.image.load(img_name)
+    picture = picture.convert_alpha()
+    return picture
 
 
 class Grid:
@@ -106,7 +75,7 @@ class Grid:
         # Pictures
         wall = pg.image.load('data/wall.jpg')
         floor = pg.image.load('data/floor.png')
-        murdoc = pg.image.load('data/murdoc.png')
+        # murdoc = pg.image.load('data/murdoc.png')
 
         line_number = 0
         for line in self.LEVEL_STRUCT:
@@ -119,11 +88,18 @@ class Grid:
                     screen_surface.blit(wall, (x, y))
                 elif sprite == ".":
                     window.blit(floor, (x, y))
-                elif sprite == "k":
-                    window.blit(murdoc, (x, y))
+                elif sprite == mcGyver:
+                     window.blit(mcGyver.picture, (x, y))
+                elif sprite == keeper:
+                    window.blit(keeper.picture, (x,y))
+                elif sprite == ether:
+                    window.blit(ether.picture, (x,y))
+                # elif sprite == syringe:
+                #     window.blit(syringe.picture, (x, y))
+                # elif sprite == needle:
+                #     window.blit(needle.picture, (x, y))
                 sprite_number += 1
             line_number += 1
-
 
 
 class Position():
@@ -168,7 +144,8 @@ class Character():
 
     def __init__(self, name, picture):
         self.name = name
-        self.picture = picture
+        self.picture = load_image(picture)
+        # self.position = position
 
     def get_object():
         """ Add all items picked up to make the syringe """
@@ -179,10 +156,9 @@ class MacGyver(Character):
 
     """ Create the character MacGyver with a random position
         when the game start """
-    def __init__(self, picture):
-        self.name = "Mc Gyver"
+    def __init__(self, name, picture):
+        super().__init__(name, picture)
         self.position = Position.random_position()
-        self.macgyver_picture = pg.image.load('data/macgyver.png')
 
 
     def move_character(self, direction):
@@ -215,18 +191,17 @@ class MacGyver(Character):
 class Lab_keeper(Character):
 
     """ Create a keeper with a fixed position """
-    def __init__(self):
-        self.name = "Murdoc"
+    def __init__(self, name, picture):
+        super().__init__(name, picture)
         self.position = Position.fixed_position()
-        self.keeper_picture = "data/murdoc.png"
 
 
 class Objects():
 
-    def __init__(self, name):
+    def __init__(self, name, picture):
         self.position = Position.random_position()
         self.name = name
-        #self.picture = picture
+        self.picture = load_image(picture)
 
     def positionner(self):
         self.ligne = self.position[0]
@@ -245,12 +220,13 @@ pg.display.set_caption("MacGyver's labyrinthe")
 
 # Create the labyrinthe
 lab = Grid("structure.txt")
-mcGyver = MacGyver("data/macgyver.png")
-aiguille = Objects("aiguille")
-seringue = Objects("seringue")
-ether = Objects("ether")
+mcGyver = MacGyver("Mc Gyver", "macgyver.png")
+keeper = Lab_keeper("Murdoc", "murdoc.png")
+# aiguille = Objects("aiguille", )
+# seringue = Objects("seringue")
+ether = Objects("ether", "ether.png")
 
-Grid.put_in_lab(mcGyver, aiguille, seringue, ether)
+Grid.put_in_lab(mcGyver, keeper, ether)
 lab.build_lab()
 lab.display_lab(screen_surface)
 
