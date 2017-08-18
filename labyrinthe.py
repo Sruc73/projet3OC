@@ -10,7 +10,7 @@ import os
 
 def load_image(name):
     """
-        Load a picture
+        Load a picture with pygame
     """
     img_name = os.path.join('data', name)
     picture = pg.image.load(img_name)
@@ -19,6 +19,9 @@ def load_image(name):
 
 
 class Grid:
+    """
+        Create a grid
+    """
 
     ROWS = 0
     COLS = 0
@@ -203,9 +206,9 @@ class Objects():
         self.name = name
         self.picture = load_image(picture)
 
-    def positionner(self):
-        self.ligne = self.position[0]
-        self.colonne = self.position[1]
+    # Créer un compteur qui compte le nombre d'objets créés
+    # afin de comparer ce compteur avec le nb d'ojets récoltés
+    # par mcGyver
 
 
 # ----------------------------------------------------------------------
