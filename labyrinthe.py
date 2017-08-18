@@ -94,10 +94,10 @@ class Grid:
                     window.blit(keeper.picture, (x,y))
                 elif sprite == ether:
                     window.blit(ether.picture, (x,y))
-                # elif sprite == syringe:
-                #     window.blit(syringe.picture, (x, y))
-                # elif sprite == needle:
-                #     window.blit(needle.picture, (x, y))
+                elif sprite == syringe:
+                    window.blit(syringe.picture, (x, y))
+                elif sprite == needle:
+                    window.blit(needle.picture, (x, y))
                 sprite_number += 1
             line_number += 1
 
@@ -225,6 +225,7 @@ keeper = Lab_keeper("Murdoc", "murdoc.png")
 # aiguille = Objects("aiguille", )
 # seringue = Objects("seringue")
 ether = Objects("ether", "ether.png")
+needle = Objects("needle", "needle.png")
 
 Grid.put_in_lab(mcGyver, keeper, ether)
 lab.build_lab()
