@@ -226,8 +226,9 @@ keeper = Lab_keeper("Murdoc", "murdoc.png")
 # seringue = Objects("seringue")
 ether = Objects("ether", "ether.png")
 needle = Objects("needle", "needle.png")
+syringe = Objects("syringe", "syringe.png")
 
-Grid.put_in_lab(mcGyver, keeper, ether)
+Grid.put_in_lab(mcGyver, keeper, ether, needle, syringe)
 lab.build_lab()
 lab.display_lab(screen_surface)
 
