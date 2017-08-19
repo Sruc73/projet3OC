@@ -47,8 +47,6 @@ class Grid:
             for j in range(cls.COLS):
                 if cls.LEVEL_STRUCT[i][j] == ".":
                     empty_b.append((i, j))
-        # empty_b = [(i, j) for i in range(0, 15) \
-        # for j in range(0, 15) if cls.LEVEL_STRUCT[i][j] == "."]
         return empty_b
 
 
