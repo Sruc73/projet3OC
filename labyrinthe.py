@@ -260,32 +260,6 @@ while continue_game:
 
 
 # def main():
-#
-#     lab = Grid("structure.txt")
-#     keeper = Lab_keeper()
-#     print(keeper.name)
-#     print(keeper.position)
-#
-#     perso1 = MacGyver("data/macgyver.png")
-#     print(perso1.name)
-#     print(perso1.position)
-#
-#     aiguille = Objects("aiguille")
-#     ether = Objects("ether")
-#     seringue = Objects("seringue")
-#
-#     print(aiguille.name)
-#     print(aiguille.position)
-#
-#     print(ether.name)
-#     print(ether.position)
-#
-#     print(seringue.name)
-#     print(seringue.position)
-#
-#     Grid.put_in_lab(perso1, keeper, aiguille, ether, seringue)
-#     print(Grid.LEVEL_STRUCT)
-#
-#
+
 # if __name__ == "__main__":
 #     main()
