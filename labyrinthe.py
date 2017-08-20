@@ -194,13 +194,13 @@ class Objects():
     """Create objects(and incremente counter for each one)
     to make McGyver able to asleep Murdoc"""
     #Initialize a counter to know how many Objects's instances there is
-    counter = O
+    COUNTER = O
 
     def __init__(self, name, picture):
         self.position = Position.random_position()
         self.name = name
         self.picture = load_image(picture)
-        Objects.counter += 1
+        Objects.COUNTER += 1
 
     # Créer un compteur qui compte le nombre d'objets créés
     # afin de comparer ce compteur avec le nb d'ojets récoltés
