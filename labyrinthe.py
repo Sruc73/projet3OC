@@ -9,9 +9,7 @@ import os
 
 
 def load_image(name):
-    """
-        Load a picture with pygame
-    """
+    """Load a picture with pygame"""
     img_name = os.path.join('data', name)
     picture = pg.image.load(img_name)
     picture = picture.convert_alpha()
@@ -19,9 +17,7 @@ def load_image(name):
 
 
 class Grid:
-    """
-        Create a grid
-    """
+    """Create a grid"""
 
     ROWS = 0
     COLS = 0
@@ -41,7 +37,7 @@ class Grid:
 
     @classmethod
     def empty_boxes(cls):
-        """ Added empty boxes from level_struct in list empty_b """
+        """Added empty boxes from level_struct in list empty_b"""
         empty_b = []
         for i in range(cls.ROWS):
             for j in range(cls.COLS):
@@ -52,7 +48,7 @@ class Grid:
 
 
     def build_lab(self):
-        """Method to create a level thanks to file structure.txt"""
+        """Method to create a labyrinth thanks to file structure.txt"""
 		#Open file
         with open(self.file, "r") as struct_file:
 			#lines of the file
@@ -72,11 +68,10 @@ class Grid:
                 self.LEVEL_STRUCT.append(level_line)
 
     def display_lab(self, window):
-        """Diplay the labyrinthe with structure send by method build_lab"""
-        # Pictures
+        """Display the labyrinthe with structure send by method build_lab"""
+        # map's pictures
         wall = pg.image.load('data/wall.jpg')
         floor = pg.image.load('data/floor.png')
-        # murdoc = pg.image.load('data/murdoc.png')
 
         line_number = 0
         for line in self.LEVEL_STRUCT:
@@ -104,16 +99,14 @@ class Grid:
 
 
 class Position():
-    """ Return the position in the grid """
+    """Return the position in the grid"""
     def __init__(self, rows, cols):
         self.rows = rows
         self.cols = cols
 
     def fixed_position():
-        """
-            Browse the structure to find the letter k's position
-            to put Murdoc in lab
-        """
+        """Browse the structure to find the letter k's position
+        to put Murdoc in lab"""
 
         lab_exit = []
         for i in range(Grid.ROWS):
@@ -126,10 +119,10 @@ class Position():
         return(fixed_x, fixed_y)
 
     def random_position():
-        """ Return a random tuple(x, y) with x = row number and y = col number
-            to set an object in the grid """
+        """Return a random tuple(x, y) with x = row number and y = col number
+            to set an object in the grid"""
 
-        # Removes random value from empty_boxes list
+        # Select a value in empty_boxes and removes it from the list
         empty_boxes = Grid.empty_boxes()
         rand_position = choice(empty_boxes)
         for i in empty_boxes:
@@ -146,52 +139,49 @@ class Character():
     def __init__(self, name, picture):
         self.name = name
         self.picture = load_image(picture)
-        # self.position = position
-
-    def get_object():
-        """ Add all items picked up to make the syringe """
-        pass
 
 
 class MacGyver(Character):
 
-    """ Create the character MacGyver with a random position
-        when the game start """
+    """Create the character MacGyver with a random position
+        when the game start"""
+
     def __init__(self, name, picture):
         super().__init__(name, picture)
         self.position = Position.random_position()
 
-
     def move_character(self, direction):
-        """ This method allows to move the character """
+        """Move the character in lab"""
+    # def move_character(self, direction):
+    #     """ This method allows to move the character """
         # If there's no wall:
         # Add 1 to character's position (line) if right arrow
-        if direction == "right":
-            if self.case_x < ROWS:
-                if self.structure[self.case_x][self.case_y] != "#":
-                    # Move to the right
-                    self.case_x += 1
-        # Remove 1 to character's position (line) if left arrow is pressed
-        if direction == "left":
-            if self.case_x > 0:
-                if self.structure[self.case_x][self.case_y] != "#":
-                    # Move to the left
-                    self.case_x -= 1
-        # Add 1 to character's position (column) if top arrow is pressed
-        if direction == "up":
-            if self.case_y > 0:
-                if self.structure[self.case_x][self.case_y] != "#":
-                    self.case_y += 1
-        # Remove 1 to charater's position (column) if bottom arrow pressed
-        if direction == "down":
-            if self.case_y < COLS:
-                if self.structure[self.case_x][self.case_y] != "#":
-                    self.case_y -= 1
+        # if direction == "right":
+        #     if self.case_x < ROWS:
+        #         if self.structure[self.case_x][self.case_y] != "#":
+        #             # Move to the right
+        #             self.case_x += 1
+        # # Remove 1 to character's position (line) if left arrow is pressed
+        # if direction == "left":
+        #     if self.case_x > 0:
+        #         if self.structure[self.case_x][self.case_y] != "#":
+        #             # Move to the left
+        #             self.case_x -= 1
+        # # Add 1 to character's position (column) if top arrow is pressed
+        # if direction == "up":
+        #     if self.case_y > 0:
+        #         if self.structure[self.case_x][self.case_y] != "#":
+        #             self.case_y += 1
+        # # Remove 1 to charater's position (column) if bottom arrow pressed
+        # if direction == "down":
+        #     if self.case_y < COLS:
+        #         if self.structure[self.case_x][self.case_y] != "#":
+        #             self.case_y -= 1
 
 
 class Lab_keeper(Character):
 
-    """ Create a keeper with a fixed position """
+    """Create a keeper with a fixed position"""
     def __init__(self, name, picture):
         super().__init__(name, picture)
         self.position = Position.fixed_position()
@@ -209,6 +199,7 @@ class Objects():
     # par mcGyver
 
 
+
 # ----------------------------------------------------------------------
     # Initialize and set up screen
 #-----------------------------------------------------------------------
@@ -217,14 +208,12 @@ pg.init()
 size = 15*30
 screen_surface = pg.display.set_mode((size, size))
 # Window's title
-pg.display.set_caption("MacGyver's labyrinthe")
+pg.display.set_caption("MacGyver's labyrinth")
 
-# Create the labyrinthe
+# Create the labyrinth
 lab = Grid("structure.txt")
 mcGyver = MacGyver("Mc Gyver", "macgyver.png")
 keeper = Lab_keeper("Murdoc", "murdoc.png")
-# aiguille = Objects("aiguille", )
-# seringue = Objects("seringue")
 ether = Objects("ether", "ether.png")
 needle = Objects("needle", "needle.png")
 syringe = Objects("syringe", "syringe.png")
