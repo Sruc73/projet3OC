@@ -1,12 +1,15 @@
+"""Openclassrooms DA Python's project 3
+MacGyver's Labyrinth
+MacGyver have to collect all the objects to be able to
+asleep the guard
+"""
 #! /usr/bin/env python3
 # coding: utf-8
 
-import pygame as pg
-from pygame.locals import *
 from random import choice
 import os
-
-
+import pygame as pg
+from pygame.locals import *
 
 def load_image(name):
     """Load a picture with pygame"""
@@ -30,6 +33,7 @@ class Grid:
 
     @classmethod
     def put_in_lab(cls, *list_obj):
+        """Put objects passed in parameter in the labyrinth"""
         for obj in list_obj:
             x = obj.position[0]
             y = obj.position[1]
@@ -85,11 +89,11 @@ class Grid:
                 elif sprite == ".":
                     window.blit(floor, (x, y))
                 elif sprite == mcGyver:
-                     window.blit(mcGyver.picture, (x, y))
+                    window.blit(mcGyver.picture, (x, y))
                 elif sprite == keeper:
-                    window.blit(keeper.picture, (x,y))
+                    window.blit(keeper.picture, (x, y))
                 elif sprite == ether:
-                    window.blit(ether.picture, (x,y))
+                    window.blit(ether.picture, (x, y))
                 elif sprite == syringe:
                     window.blit(syringe.picture, (x, y))
                 elif sprite == needle:
@@ -190,7 +194,7 @@ class Objects():
     """Create objects(and incremente counter for each one)
     to make McGyver able to asleep Murdoc"""
     #Initialize a counter to know how many Objects's instances there is
-    COUNTER = O
+    COUNTER = 0
 
     def __init__(self, name, picture):
         self.position = Position.random_position()
@@ -209,8 +213,8 @@ class Objects():
 #-----------------------------------------------------------------------
 pg.init()
 
-size = 15*30
-screen_surface = pg.display.set_mode((size, size))
+SIZE = 15*30
+screen_surface = pg.display.set_mode((SIZE, SIZE))
 # Window's title
 pg.display.set_caption("MacGyver's labyrinth")
 
