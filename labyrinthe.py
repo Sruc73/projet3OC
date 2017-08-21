@@ -11,20 +11,13 @@ import os
 import pygame as pg
 from pygame.locals import *
 
-def load_image(name):
-    """Load a picture with pygame"""
-    img_name = os.path.join('data', name)
-    picture = pg.image.load(img_name)
-    picture = picture.convert_alpha()
-    return picture
-
 
 class Grid:
     """Create a grid"""
 
-    ROWS = 0
-    COLS = 0
     LEVEL_STRUCT = []
+    rows = 0
+    cols = 0
 
     def __init__(self, struct):
         """Constructor for a 15X15 grid"""
@@ -43,8 +36,8 @@ class Grid:
     def empty_boxes(cls):
         """Added empty boxes from level_struct in list empty_b"""
         empty_b = []
-        for i in range(cls.ROWS):
-            for j in range(cls.COLS):
+        for i in range(cls.rows):
+            for j in range(cls.cols):
                 if cls.LEVEL_STRUCT[i][j] == ".":
                     empty_b.append((i, j))
         return empty_b
@@ -54,9 +47,9 @@ class Grid:
     def build_lab(self):
         """Method to create a labyrinth thanks to file structure.txt"""
 		#Open file
-        with open(self.file, "r") as struct_file:
+        with open(self.file, "r") as f:
 			#lines of the file
-            for index, line in enumerate(struct_file):
+            for index, line in enumerate(f):
                 level_line = []
 				#sprites in file
                 for sprite in line:
@@ -66,8 +59,8 @@ class Grid:
                         level_line.append(sprite)
                     # Get number of signs to get number of columns
                     if index == 0:
-                        Grid.COLS = len(line) -1
-                Grid.ROWS += 1
+                        Grid.cols = len(line) -1
+                Grid.rows += 1
 				# Add the line to the level structure
                 self.LEVEL_STRUCT.append(level_line)
 
@@ -84,6 +77,7 @@ class Grid:
                 # sprite's position in pixels (1 sprite = 30 px)
                 x = sprite_number * 30
                 y = line_number * 30
+
                 if sprite == "#":
                     screen_surface.blit(wall, (x, y))
                 elif sprite == ".":
@@ -108,13 +102,14 @@ class Position():
         self.rows = rows
         self.cols = cols
 
+    @staticmethod
     def fixed_position():
         """Browse the structure to find the letter k's position
         to put Murdoc in lab"""
 
         lab_exit = []
-        for i in range(Grid.ROWS):
-            for j in range(Grid.COLS):
+        for i in range(Grid.rows):
+            for j in range(Grid.cols):
                 if Grid.LEVEL_STRUCT[i][j] == "k":
                     lab_exit.append((i, j))
         # Set tuple's values to fixed_x and fixed_y
@@ -122,6 +117,7 @@ class Position():
         fixed_y = lab_exit[0][1]
         return(fixed_x, fixed_y)
 
+    @staticmethod
     def random_position():
         """Return a random tuple(x, y) with x = row number and y = col number
             to set an object in the grid"""
@@ -161,7 +157,7 @@ class MacGyver(Character):
         # If there's no wall:
         # Add 1 to character's position (line) if right arrow
         # if direction == "right":
-        #     if self.case_x < ROWS and self.structure[self.case_x][self.case_y] != "#":
+        #     if self.case_x < rows and self.structure[self.case_x][self.case_y] != "#":
         #             # Move to the right
         #             self.case_x += 1
         # # Remove 1 to character's position (line) if left arrow is pressed
@@ -193,70 +189,98 @@ class Lab_keeper(Character):
 class Objects():
     """Create objects(and incremente counter for each one)
     to make McGyver able to asleep Murdoc"""
-    #Initialize a counter to know how many Objects's instances there is
-    COUNTER = 0
+    #Initialize a counter to know how many Objects's instances are created
+    counter = 0
 
     def __init__(self, name, picture):
         self.position = Position.random_position()
         self.name = name
         self.picture = load_image(picture)
-        Objects.COUNTER += 1
-
-    # Créer un compteur qui compte le nombre d'objets créés
-    # afin de comparer ce compteur avec le nb d'ojets récoltés
-    # par mcGyver
+        Objects.counter += 1
 
 
+class pyMgGame():
+    """This class initialize a screen and create the game"""
 
+    def __init__(self, width = 15 * 30, height = 15 * 30):
+        self.width = width
+        self.height = height
+        """Initialize pygame"""
+        pg.init()
+        """Create the screen"""
+        screen_surface = pg.display.set_mode((self.width, self.height))
+        """Name the screen"""
+        pg.display.set_caption("MacGyver's labyrinth")
+
+    def load_image(name):
+        """Load a picture with pygame"""
+        img_name = os.path.join('data', name)
+        picture = pg.image.load(img_name)
+        picture = picture.convert_alpha()
+        return picture
+
+    def main_loop(self):
+        continue_game = True
+        """Game's infinite loop"""
+        while continue_game:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    continue_game = False
+                elif event.type == KEYDOWN:
+                    if (event.key == K_RIGHT or event.key == K_LEFT or\
+                    event.key == K_UP or event.key == K_DOWN):
+                        mcGyver.move_character(event.key)
 # ----------------------------------------------------------------------
     # Initialize and set up screen
 #-----------------------------------------------------------------------
-pg.init()
-
-SIZE = 15*30
-screen_surface = pg.display.set_mode((SIZE, SIZE))
-# Window's title
-pg.display.set_caption("MacGyver's labyrinth")
-
-# Create the labyrinth
-lab = Grid("structure.txt")
-mcGyver = MacGyver("Mc Gyver", "macgyver.png")
-keeper = Lab_keeper("Murdoc", "murdoc.png")
-ether = Objects("ether", "ether.png")
-needle = Objects("needle", "needle.png")
-syringe = Objects("syringe", "syringe.png")
-
-Grid.put_in_lab(mcGyver, keeper, ether, needle, syringe)
-lab.build_lab()
-lab.display_lab(screen_surface)
-
-
-keeper = Lab_keeper
-
-#-----------------------------------------------------------------------
-# INFINITE LOOP
-#-----------------------------------------------------------------------
-
-continue_game = True
-while continue_game:
-    for event in pg.event.get():
-        if event.type == QUIT:
-            continue_game = False
-        elif event.type == KEYDOWN:
-            if event.key == K_RIGHT:
-                mcGyver.move_character("right")
-            elif event.key == K_LEFT:
-                mcGyver.move_character("left")
-            elif event.key == K_UP:
-                mcGyver.move_character("up")
-            elif event.key == K_DOWN:
-                mcGyver.move_character("down")
-
-    #screen_surface.blit(mcGyver.macgyver_picture)
-    pg.display.flip()
-
+# pg.init()
+#
+# SIZE = 15*30
+# screen_surface = pg.display.set_mode((SIZE, SIZE))
+# # Window's title
+# pg.display.set_caption("MacGyver's labyrinth")
+#
+# # Create the labyrinth
+# lab = Grid("structure.txt")
+# mcGyver = MacGyver("Mc Gyver", "macgyver.png")
+# keeper = Lab_keeper("Murdoc", "murdoc.png")
+# ether = Objects("ether", "ether.png")
+# needle = Objects("needle", "needle.png")
+# syringe = Objects("syringe", "syringe.png")
+#
+# Grid.put_in_lab(mcGyver, keeper, ether, needle, syringe)
+# lab.build_lab()
+# lab.display_lab(screen_surface)
+#
+#
+# keeper = Lab_keeper
+#
+# #-----------------------------------------------------------------------
+# # INFINITE LOOP
+# #-----------------------------------------------------------------------
+#
+# continue_game = True
+# while continue_game:
+#     for event in pg.event.get():
+#         if event.type == QUIT:
+#             continue_game = False
+#         elif event.type == KEYDOWN:
+#             if event.key == K_RIGHT:
+#                 mcGyver.move_character("right")
+#             elif event.key == K_LEFT:
+#                 mcGyver.move_character("left")
+#             elif event.key == K_UP:
+#                 mcGyver.move_character("up")
+#             elif event.key == K_DOWN:
+#                 mcGyver.move_character("down")
+#
+#     #screen_surface.blit(mcGyver.macgyver_picture)
+#     pg.display.flip()
+#
 
 # def main():
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    #main()
+    window = pyMgGame()
+    window.main_loop()
