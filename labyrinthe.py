@@ -149,6 +149,7 @@ class MacGyver(Character):
     def __init__(self, name, picture):
         super().__init__(name, picture)
         self.position = Position.random_position()
+        self.objects = 0
 
     def move_character(self, direction):
         """Move the character in lab"""
@@ -226,6 +227,7 @@ class pyMgGame():
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     continue_game = False
+                #Watch keyboard actions to move McGyver
                 elif event.type == KEYDOWN:
                     if (event.key == K_RIGHT or event.key == K_LEFT or\
                     event.key == K_UP or event.key == K_DOWN):
