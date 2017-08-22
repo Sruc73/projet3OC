@@ -15,7 +15,7 @@ def load_image(name):
     """Load a picture with pygame"""
     img_name = os.path.join('data', name)
     picture = pg.image.load(img_name)
-    picture = picture.convert()
+    picture = picture.convert_alpha()
     return picture
 
 
@@ -230,8 +230,8 @@ pg.init()
 SIZE = 450 #15 sprites * 30 pixels
 screen = pg.display.set_mode((SIZE, SIZE))
 background = load_image("floor.png")
-background2 = pg.transform.scale(background,(SIZE,SIZE))
-screen.blit(background2, (0, 0))
+background = pg.transform.scale(background,(SIZE,SIZE))
+screen.blit(background, (0, 0))
 # Window's title
 pg.display.set_caption("MacGyver's labyrinth")
 
