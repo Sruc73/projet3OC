@@ -69,11 +69,10 @@ class Grid:
 				# Add the line to the level structure
                 self.LEVEL_STRUCT.append(level_line)
 
-    def display_lab(self, window):
-        """Display the labyrinthe with structure send by method build_lab"""
+    def display_lab(self, screen):
+        """Display the labyrinth with structure send by method build_lab"""
         # map's pictures
         wall = pg.image.load('data/wall.jpg')
-        floor = pg.image.load('data/floor.png')
 
         line_number = 0
         for line in self.LEVEL_STRUCT:
@@ -84,19 +83,17 @@ class Grid:
                 y = line_number * 30
 
                 if sprite == "#":
-                    window.blit(wall, (x, y))
-                # elif sprite == ".":
-                #     screen.blit(floor, (x, y))
+                    screen.blit(wall, (x, y))
                 elif sprite == mcGyver:
-                    window.blit(mcGyver.picture, (x, y))
+                    screen.blit(mcGyver.picture, (x, y))
                 elif sprite == keeper:
-                    window.blit(keeper.picture, (x, y))
+                    screen.blit(keeper.picture, (x, y))
                 elif sprite == ether:
-                    window.blit(ether.picture, (x, y))
+                    screen.blit(ether.picture, (x, y))
                 elif sprite == syringe:
-                    window.blit(syringe.picture, (x, y))
+                    screen.blit(syringe.picture, (x, y))
                 elif sprite == needle:
-                    window.blit(needle.picture, (x, y))
+                    screen.blit(needle.picture, (x, y))
                 sprite_number += 1
             line_number += 1
 
@@ -143,8 +140,9 @@ class Character():
         self.name = name
         self.picture = load_image(picture)
         #Put picture's size at 30 X 30 pixels
-        #Voir pour modifier avec utilisation de rect
         self.picture = pg.transform.scale(self.picture,(30, 30))
+
+        # screen.blit(self.picture, self.picture_rect)
 
 
 class MacGyver(Character):
@@ -155,25 +153,35 @@ class MacGyver(Character):
     def __init__(self, name, picture):
         super().__init__(name, picture)
         self.position = Position.random_position()
+        self.rect = pg.Rect(self.position[0], self.position[1], 30, 30)
+        self.x = self.position[0] * 30
+        self.y = self.position[1] * 30
 
 
-    # def move_character(self, key):
-    #     """ This method allows to move the character """
-    #     if (key == K_RIGHT):
-    #         #If there's no wall
-    #         if self.structure[self.rand_x][self.rand_y] != "#" and self.rand_x < rows:
-    #             #Move to the right
-    #             self.rand_x += 1
-    #     elif (key == K_LEFT):
-    #         if self.structure[self.rand_x][self.rand_y] != "#" and self.rand_x > 0:
-    #             #Move left
-    #             self.rand_x -= 1
-    #     elif (key == K_DOWN):
-    #         if self.structure[self.rand_x][self.rand_y] != "#" and self.rand_y < cols:
-    #             self.rand_y -= 1
-    #     elif (key == K_UP):
-    #         if self.structure[self.rand_x][self.rand_y] != "#" and self.rand_y > 0:
-    #             self.rand_y += 1
+    def move_character(self, key):
+        """ This method allows to move the character """
+        if (key == K_RIGHT):
+            #If there's no wall
+            if self.structure[self.position[0]][self.position[1]] != "#":
+                #Move to the right
+                self.position[0] += 1
+                self.x = self.position[0] * 30
+        elif (key == K_LEFT):
+            if self.structure[self.position[0]][self.position[1]] != "#"\
+            and self.position[0] > 0:
+                #Move left
+                self.position[0] -= 1
+                self.x = self.position[0] * 30
+        elif (key == K_DOWN):
+            if self.structure[self.rand_x][self.position[1]] != "#"\
+            and self.rand_y < cols:
+                self.rand_y -= 1
+                self.y = self.rand_y * 30
+        elif (key == K_UP):
+            if self.structure[self.rand_x][self.position[1]] != "#"\
+            and self.position[1] > 0:
+                self.position[1] += 1
+                self.y = self.position[1] * 30
 
 
 class Lab_keeper(Character):
@@ -182,6 +190,7 @@ class Lab_keeper(Character):
     def __init__(self, name, picture):
         super().__init__(name, picture)
         self.position = Position.fixed_position()
+        self.rect = pg.Rect(self.position[0], self.position[1], 30, 30)
 
 
 class Objects():
@@ -194,33 +203,9 @@ class Objects():
         self.position = Position.random_position()
         self.name = name
         self.picture = load_image(picture)
+        self.rect = pg.Rect(self.position[0], self.position[1], 30, 30)
         self.counter += 1
 
-
-# class MgGame():
-#     """This class initialize a screen and create the game"""
-#
-#     def __init__(self, width = 15 * 30, height = 15 * 30):
-#         self.width = width
-#         self.height = height
-#         """Initialize pygame"""
-#         pg.init()
-#         """Create the screen"""
-#         screen_surface = pg.display.set_mode((self.width, self.height))
-#         """Name the screen"""
-#         pg.display.set_caption("MacGyver's labyrinth")
-#
-#     def main_loop(self):
-#         continue_game = True
-#         """Game's infinite loop"""
-#         while continue_game:
-#             for event in pg.event.get():
-#                 if event.type == pg.QUIT:
-#                     continue_game = False
-#                 elif event.type == KEYDOWN:
-#                     if (event.key == K_RIGHT or event.key == K_LEFT or\
-#                     event.key == K_UP or event.key == K_DOWN):
-#                         mcGyver.move_character(event.key)
 
 # ----------------------------------------------------------------------
     # Initialize and set up screen
@@ -229,11 +214,11 @@ pg.init()
 
 SIZE = 450 #15 sprites * 30 pixels
 screen = pg.display.set_mode((SIZE, SIZE))
+# Window's title
+pg.display.set_caption("MacGyver's labyrinth")
 background = load_image("floor.png")
 background = pg.transform.scale(background,(SIZE,SIZE))
 screen.blit(background, (0, 0))
-# Window's title
-pg.display.set_caption("MacGyver's labyrinth")
 
 # Create the labyrinth
 lab = Grid("structure.txt")
@@ -246,6 +231,8 @@ syringe = Objects("syringe", "syringe.png")
 #Put characters and objects in labyrinth
 Grid.put_in_lab(mcGyver, keeper, ether, needle, syringe)
 lab.display_lab(screen)
+pg.key.set_repeat(400, 30)
+pg.display.flip()
 
 
 #-----------------------------------------------------------------------
@@ -258,12 +245,18 @@ while continue_game:
         if event.type == QUIT:
             continue_game = False
         elif event.type == KEYDOWN:
-            if ((event.key == K_RIGHT) or (event.key == K_LEFT)\
-            or (event.key == K_UP) or (event.key == K_DOWN)):
+            if event.key == K_ESCAPE:
+                continue_game = False
+            elif event.key == K_UP:
+                mcGyver.move_character(event.key)
+            elif event.key == K_DOWN:
+                mcGyver.move_character(event.key)
+            elif event.key == K_RIGHT:
+                mcGyver.move_character(event.key)
+            elif event.key == K_LEFT:
                 mcGyver.move_character(event.key)
 
-    #screen_surface.blit(mcGyver.macgyver_picture)
-    #Refreshing the screen
+    screen.blit
     pg.display.flip()
 
 # def main():
