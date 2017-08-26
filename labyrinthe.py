@@ -145,43 +145,50 @@ class Character():
         # screen.blit(self.picture, self.picture_rect)
 
 
-class MacGyver(Character):
-
-    """Create the character MacGyver with a random position
-        when the game start"""
-
-    def __init__(self, name, picture):
-        super().__init__(name, picture)
+# class MacGyver(Character):
+#
+#     """Create the character MacGyver with a random position
+#         when the game start"""
+#
+#     def __init__(self, name, picture):
+#         super().__init__(name, picture)
+#         self.position = Position.random_position()
+#         self.picture_rect = self.picture.get_rect()
+#         self.x = self.y = 30
+class MacGyver:
+    def __init__(self, picture):
         self.position = Position.random_position()
-        self.rect = pg.Rect(self.position[0], self.position[1], 30, 30)
-        self.x = self.position[0] * 30
-        self.y = self.position[1] * 30
+        self.picture = load_image("macgyver.png")
+        self.p_rect = self.picture.get_rect()
+        self.x = 30
+        self.y = 30
 
 
-    def move_character(self, key):
-        """ This method allows to move the character """
-        if (key == K_RIGHT):
-            #If there's no wall
-            if self.structure[self.position[0]][self.position[1]] != "#":
-                #Move to the right
-                self.position[0] += 1
-                self.x = self.position[0] * 30
-        elif (key == K_LEFT):
-            if self.structure[self.position[0]][self.position[1]] != "#"\
-            and self.position[0] > 0:
-                #Move left
-                self.position[0] -= 1
-                self.x = self.position[0] * 30
-        elif (key == K_DOWN):
-            if self.structure[self.rand_x][self.position[1]] != "#"\
-            and self.rand_y < cols:
-                self.rand_y -= 1
-                self.y = self.rand_y * 30
-        elif (key == K_UP):
-            if self.structure[self.rand_x][self.position[1]] != "#"\
-            and self.position[1] > 0:
-                self.position[1] += 1
-                self.y = self.position[1] * 30
+    # def move_character(self, key):
+    #     """ This method allows to move the character """
+    #
+    #     if (key == K_RIGHT):
+    #         #If there's no wall
+    #         if self.structure[self.position[0]][self.position[1]] != "#":
+    #             #Move to the right
+    #             self.position[0] += 1
+    #             self.x = self.position[0] * 30
+    #     elif (key == K_LEFT):
+    #         if self.structure[self.position[0]][self.position[1]] != "#"\
+    #         and self.position[0] > 0:
+    #             #Move left
+    #             self.position[0] -= 1
+    #             self.x = self.position[0] * 30
+    #     elif (key == K_DOWN):
+    #         if self.structure[self.rand_x][self.position[1]] != "#"\
+    #         and self.rand_y < cols:
+    #             self.rand_y -= 1
+    #             self.y = self.rand_y * 30
+    #     elif (key == K_UP):
+    #         if self.structure[self.rand_x][self.position[1]] != "#"\
+    #         and self.position[1] > 0:
+    #             self.position[1] += 1
+    #             self.y = self.position[1] * 30
 
 
 class Lab_keeper(Character):
@@ -222,7 +229,8 @@ screen.blit(background, (0, 0))
 
 # Create the labyrinth
 lab = Grid("structure.txt")
-mcGyver = MacGyver("Mc Gyver", "macgyver.png")
+#mcGyver = MacGyver("Mac Gyver", "macgyver.png")
+mcGyver = MacGyver("macgyver.png")
 keeper = Lab_keeper("Murdoc", "murdoc.png")
 ether = Objects("ether", "ether.png")
 needle = Objects("needle", "needle.png")
@@ -245,18 +253,17 @@ while continue_game:
         if event.type == QUIT:
             continue_game = False
         elif event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                continue_game = False
-            elif event.key == K_UP:
-                mcGyver.move_character(event.key)
-            elif event.key == K_DOWN:
-                mcGyver.move_character(event.key)
-            elif event.key == K_RIGHT:
-                mcGyver.move_character(event.key)
+            if event.key == K_RIGHT:
+                mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x, 0)
             elif event.key == K_LEFT:
-                mcGyver.move_character(event.key)
+                mcGyver.p_rect = mcGyver.p_rect.move(-mcGyver.x, 0)
+            elif event.key == K_UP:
+                mcGyver.p_rect = mcGyver.p_rect.move(0, -mcGyver.y)
+            elif event.key == K_DOWN:
+                mcGyver.p_rect = mcGyver.p_rect.move(0, mcGyver.y)
 
-    screen.blit
+    #screen.blit(background, (0, 0))
+    screen.blit(mcGyver.picture, mcGyver.p_rect)
     pg.display.flip()
 
 # def main():
