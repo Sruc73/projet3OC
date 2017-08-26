@@ -72,7 +72,7 @@ class Grid:
     def display_lab(self, screen):
         """Display the labyrinth with structure send by method build_lab"""
         # map's pictures
-        wall = pg.image.load('data/wall.jpg')
+        wall = load_image('wall.jpg')
 
         line_number = 0
         for line in self.LEVEL_STRUCT:
@@ -145,20 +145,14 @@ class Character():
         # screen.blit(self.picture, self.picture_rect)
 
 
-# class MacGyver(Character):
-#
-#     """Create the character MacGyver with a random position
-#         when the game start"""
-#
-#     def __init__(self, name, picture):
-#         super().__init__(name, picture)
-#         self.position = Position.random_position()
-#         self.picture_rect = self.picture.get_rect()
-#         self.x = self.y = 30
-class MacGyver:
-    def __init__(self, picture):
+class MacGyver(Character):
+
+    """Create the character MacGyver with a random position
+        when the game start"""
+
+    def __init__(self, name, picture):
+        super().__init__(name, picture)
         self.position = Position.random_position()
-        self.picture = load_image("macgyver.png")
         self.p_rect = self.picture.get_rect()
         self.x = 30
         self.y = 30
@@ -229,8 +223,8 @@ screen.blit(background, (0, 0))
 
 # Create the labyrinth
 lab = Grid("structure.txt")
-#mcGyver = MacGyver("Mac Gyver", "macgyver.png")
-mcGyver = MacGyver("macgyver.png")
+mcGyver = MacGyver("Mac Gyver", "macgyver.png")
+# mcGyver = MacGyver("macgyver.png")
 keeper = Lab_keeper("Murdoc", "murdoc.png")
 ether = Objects("ether", "ether.png")
 needle = Objects("needle", "needle.png")
@@ -253,14 +247,15 @@ while continue_game:
         if event.type == QUIT:
             continue_game = False
         elif event.type == KEYDOWN:
-            if event.key == K_RIGHT:
-                mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x, 0)
-            elif event.key == K_LEFT:
-                mcGyver.p_rect = mcGyver.p_rect.move(-mcGyver.x, 0)
-            elif event.key == K_UP:
-                mcGyver.p_rect = mcGyver.p_rect.move(0, -mcGyver.y)
-            elif event.key == K_DOWN:
-                mcGyver.p_rect = mcGyver.p_rect.move(0, mcGyver.y)
+            #If structure != "#":
+                if event.key == K_RIGHT:
+                    mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x, 0)
+                elif event.key == K_LEFT:
+                    mcGyver.p_rect = mcGyver.p_rect.move(-mcGyver.x, 0)
+                elif event.key == K_UP:
+                    mcGyver.p_rect = mcGyver.p_rect.move(0, -mcGyver.y)
+                elif event.key == K_DOWN:
+                    mcGyver.p_rect = mcGyver.p_rect.move(0, mcGyver.y)
 
     screen.blit(background, (0, 0))
     lab.display_lab(screen)
