@@ -262,7 +262,8 @@ while continue_game:
             elif event.key == K_DOWN:
                 mcGyver.p_rect = mcGyver.p_rect.move(0, mcGyver.y)
 
-    #screen.blit(background, (0, 0))
+    screen.blit(background, (0, 0))
+    lab.display_lab(screen)
     screen.blit(mcGyver.picture, mcGyver.p_rect)
     pg.display.flip()
 
