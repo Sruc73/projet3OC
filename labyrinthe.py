@@ -11,6 +11,7 @@ import os
 import pygame as pg
 from pygame.locals import *
 
+
 def load_image(name):
     """Load a picture with pygame"""
     img_name = os.path.join('data', name)
@@ -51,22 +52,22 @@ class Grid:
 
     def build_lab(self):
         """Method to create a labyrinth thanks to file structure.txt"""
-		#Open file
+        # Open file
         with open(self.file, "r") as f:
-			#lines of the file
+                        # lines of the file
             for index, line in enumerate(f):
                 level_line = []
-				#sprites in file
+                #sprites in file
                 for sprite in line:
-					#ignore "\n"
+                                        # ignore "\n"
                     if sprite != '\n':
-						# Add sprite to the line
+                                                # Add sprite to the line
                         level_line.append(sprite)
                     # Get number of signs to get number of columns
                     if index == 0:
-                        Grid.COLS = len(line) -1
+                        Grid.COLS = len(line) - 1
                 Grid.ROWS += 1
-				# Add the line to the level structure
+                # Add the line to the level structure
                 self.LEVEL_STRUCT.append(level_line)
 
     def display_lab(self, screen):
@@ -85,7 +86,8 @@ class Grid:
                 if sprite == "#":
                     screen.blit(wall, (x, y))
                 elif sprite == mcGyver:
-                    screen.blit(mcGyver.picture, (x, y))
+                    #screen.blit(mcGyver.picture, (x, y))
+                    screen.blit(mcGyver.picture, mcGyver.p_rect)
                 elif sprite == keeper:
                     screen.blit(keeper.picture, (x, y))
                 elif sprite == ether:
@@ -100,6 +102,7 @@ class Grid:
 
 class Position():
     """Return the position in the grid"""
+
     def __init__(self, rows, cols):
         self.rows = rows
         self.cols = cols
@@ -139,8 +142,8 @@ class Character():
     def __init__(self, name, picture):
         self.name = name
         self.picture = load_image(picture)
-        #Put picture's size at 30 X 30 pixels
-        self.picture = pg.transform.scale(self.picture,(30, 30))
+        # Put picture's size at 30 X 30 pixels
+        self.picture = pg.transform.scale(self.picture, (30, 30))
 
         # screen.blit(self.picture, self.picture_rect)
 
@@ -154,9 +157,9 @@ class MacGyver(Character):
         super().__init__(name, picture)
         self.position = Position.random_position()
         self.p_rect = self.picture.get_rect()
+        self.p_rect = pg.Rect(self.position[1] * 30, self.position[0] * 30, 30, 30)
         self.x = 30
         self.y = 30
-
 
     # def move_character(self, key):
     #     """ This method allows to move the character """
@@ -188,6 +191,7 @@ class MacGyver(Character):
 class Lab_keeper(Character):
 
     """Create a keeper with a fixed position"""
+
     def __init__(self, name, picture):
         super().__init__(name, picture)
         self.position = Position.fixed_position()
@@ -197,7 +201,7 @@ class Lab_keeper(Character):
 class Objects():
     """Create objects(and incremente counter for each one)
     to make McGyver able to asleep Murdoc"""
-    #Initialize a counter to know how many Objects's instances are created
+    # Initialize a counter to know how many Objects's instances are created
     counter = 0
 
     def __init__(self, name, picture):
@@ -213,12 +217,12 @@ class Objects():
 #-----------------------------------------------------------------------
 pg.init()
 
-SIZE = 450 #15 sprites * 30 pixels
+SIZE = 450  # 15 sprites * 30 pixels
 screen = pg.display.set_mode((SIZE, SIZE))
 # Window's title
 pg.display.set_caption("MacGyver's labyrinth")
 background = load_image("floor.png")
-background = pg.transform.scale(background,(SIZE,SIZE))
+background = pg.transform.scale(background, (SIZE, SIZE))
 screen.blit(background, (0, 0))
 
 # Create the labyrinth
@@ -230,7 +234,7 @@ ether = Objects("ether", "ether.png")
 needle = Objects("needle", "needle.png")
 syringe = Objects("syringe", "syringe.png")
 
-#Put characters and objects in labyrinth
+# Put characters and objects in labyrinth
 Grid.put_in_lab(mcGyver, keeper, ether, needle, syringe)
 lab.display_lab(screen)
 pg.key.set_repeat(400, 30)
@@ -247,7 +251,8 @@ while continue_game:
         if event.type == QUIT:
             continue_game = False
         elif event.type == KEYDOWN:
-            #If structure != "#":
+            # If structure != "#":
+            if Grid.LEVEL_STRUCT != "#":
                 if event.key == K_RIGHT:
                     mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x, 0)
                 elif event.key == K_LEFT:
