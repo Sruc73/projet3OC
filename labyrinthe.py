@@ -275,8 +275,8 @@ while continue_game:
                 # if mcGyver.p_rect.colliderect(w_rect):
                 #     mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x - 1, 0)
             elif event.key == K_LEFT:
-                if Grid.LEVEL_STRUCT[mcGyver.position[0]][mcGyver.position[1] - 1] != "#":
-                    mcGyver.p_rect = mcGyver.p_rect.move(-mcGyver.x, 0)
+                # if Grid.LEVEL_STRUCT[mcGyver.position[0]][mcGyver.position[1] - 1] != "#":
+                mcGyver.p_rect = mcGyver.p_rect.move(-mcGyver.x, 0)
             elif event.key == K_UP:
                 mcGyver.p_rect = mcGyver.p_rect.move(0, -mcGyver.y)
             elif event.key == K_DOWN:
