@@ -73,7 +73,6 @@ class Grid:
     def display_lab(self, screen):
         """Display the labyrinth with structure send by method build_lab"""
         wall = load_image("wall.jpg")
-        w_rect = wall.get_rect()
 
         line_number = 0
         for line in self.LEVEL_STRUCT:
@@ -253,7 +252,7 @@ syringe = Objects("syringe", "syringe.png")
 
 # Put characters and objects in labyrinth
 Grid.put_in_lab(mcGyver, keeper, ether, needle, syringe)
-Grid.lab_wall()
+
 
 lab.display_lab(screen)
 pg.key.set_repeat(400, 30)
@@ -273,8 +272,8 @@ while continue_game:
 
             if event.key == K_RIGHT:
                 mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x, 0)
-                if mcGyver.p_rect.colliderect(w_rect):
-                    mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x - 1, 0)
+                # if mcGyver.p_rect.colliderect(w_rect):
+                #     mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x - 1, 0)
             elif event.key == K_LEFT:
                 if Grid.LEVEL_STRUCT[mcGyver.position[0]][mcGyver.position[1] - 1] != "#":
                     mcGyver.p_rect = mcGyver.p_rect.move(-mcGyver.x, 0)
