@@ -87,13 +87,13 @@ class Grid:
                 elif sprite == mcGyver:
                     screen.blit(mcGyver.picture, mcGyver.p_rect)
                 elif sprite == keeper:
-                    screen.blit(keeper.picture, (x, y))
+                    screen.blit(keeper.picture, keeper.rect)
                 elif sprite == ether:
-                    screen.blit(ether.picture, (x, y))
+                    screen.blit(ether.picture, ether.rect)
                 elif sprite == syringe:
-                    screen.blit(syringe.picture, (x, y))
+                    screen.blit(syringe.picture, syringe.rect)
                 elif sprite == needle:
-                    screen.blit(needle.picture, (x, y))
+                    screen.blit(needle.picture, needle.rect)
                 sprite_number += 1
             line_number += 1
 
@@ -166,32 +166,6 @@ class MacGyver(Character):
         self.x = 30
         self.y = 30
 
-    # def move_character(self, key):
-    #     """ This method allows to move the character """
-    #
-    #     if (key == K_RIGHT):
-    #         #If there's no wall
-    #         if self.structure[self.position[0]][self.position[1]] != "#":
-    #             #Move to the right
-    #             self.position[0] += 1
-    #             self.x = self.position[0] * 30
-    #     elif (key == K_LEFT):
-    #         if self.structure[self.position[0]][self.position[1]] != "#"\
-    #         and self.position[0] > 0:
-    #             #Move left
-    #             self.position[0] -= 1
-    #             self.x = self.position[0] * 30
-    #     elif (key == K_DOWN):
-    #         if self.structure[self.rand_x][self.position[1]] != "#"\
-    #         and self.rand_y < cols:
-    #             self.rand_y -= 1
-    #             self.y = self.rand_y * 30
-    #     elif (key == K_UP):
-    #         if self.structure[self.rand_x][self.position[1]] != "#"\
-    #         and self.position[1] > 0:
-    #             self.position[1] += 1
-    #             self.y = self.position[1] * 30
-
 
 class LabKeeper(Character):
 
@@ -200,7 +174,7 @@ class LabKeeper(Character):
     def __init__(self, name, picture):
         super().__init__(name, picture)
         self.position = Position.fixed_position()
-        self.rect = pg.Rect(self.position[0], self.position[1], 30, 30)
+        self.rect = pg.Rect(self.position[1] * 30, self.position[0] * 30, 30, 30)
 
 
 class Objects():
@@ -213,18 +187,17 @@ class Objects():
         self.position = Position.random_position()
         self.name = name
         self.picture = load_image(picture)
-        self.rect = pg.Rect(self.position[0], self.position[1], 30, 30)
+        self.rect = pg.Rect(self.position[1] * 30, self.position[0] * 30, 30, 30)
         self.counter += 1
 
 
-# class Wall(Objects):
-#
-#     def __init__(self, name, picture):
-#         super().__init__(name, picture)
-#         self.name = name
-#         self.picture = load_image(picture)
-#         self.w_rect = self.picture.get_rect()
-#         self.w_rect = pg.Rect()
+class Wall(Objects):
+
+    def __init__(self, name, picture):
+        super().__init__(name, picture)
+        self.name = name
+        self.picture = load_image(picture)
+        self.w_rect = self.picture.get_rect()
 
 
 
