@@ -160,7 +160,7 @@ class MacGyver(Character):
         super().__init__(name, picture)
         self.position = Position.random_position()
         self.p_rect = self.picture.get_rect()
-        self.p_rect = pg.Rect(self.position[1] * 30, self.position[0] * 30, 30, 30)
+        self.p_rect = pg.Rect(self.position[1] * 30, self.position[0] * 30, 30, 30)s
         self.x = 30
         self.y = 30
 
@@ -189,13 +189,13 @@ class Objects():
         self.counter += 1
 
 
-class Wall(Objects):
-
-    def __init__(self, name, picture):
-        super().__init__(name, picture)
-        self.name = name
-        self.picture = load_image(picture)
-        self.w_rect = self.picture.get_rect()
+# class Wall(Objects):
+#
+#     def __init__(self, name, picture):
+#         super().__init__(name, picture)
+#         self.name = name
+#         self.picture = load_image(picture)
+#         self.w_rect = self.picture.get_rect()
     #
     # @classmethod
     # def wall_pos(cls, *walls_position):
@@ -226,11 +226,11 @@ keeper = LabKeeper("Murdoc", "murdoc.png")
 ether = Objects("ether", "ether.png")
 needle = Objects("needle", "needle.png")
 syringe = Objects("syringe", "syringe.png")
-wall = Wall("wall", "wall.jpg")
+# wall = Wall("wall", "wall.jpg")
 
 # Put characters and objects in labyrinth
 Grid.put_in_lab(mcGyver, keeper, ether, needle, syringe)
-Wall.wall_pos(Position.wall_position)
+# Wall.wall_pos(Position.wall_position)
 
 
 lab.display_lab(screen)
