@@ -150,8 +150,6 @@ class Character():
         # Put picture's size at 30 X 30 pixels
         self.picture = pg.transform.scale(self.picture, (30, 30))
 
-        # screen.blit(self.picture, self.picture_rect)
-
 
 class MacGyver(Character):
 
@@ -198,6 +196,13 @@ class Wall(Objects):
         self.name = name
         self.picture = load_image(picture)
         self.w_rect = self.picture.get_rect()
+    #
+    # @classmethod
+    # def wall_pos(cls, *walls_position):
+    #     for position in walls_position:
+    #         x = position[0]
+    #         y = position[1]
+    #         Grid.LEVEL_STRUCT[x][y] = w_rect
 
 
 
@@ -221,10 +226,11 @@ keeper = LabKeeper("Murdoc", "murdoc.png")
 ether = Objects("ether", "ether.png")
 needle = Objects("needle", "needle.png")
 syringe = Objects("syringe", "syringe.png")
-# wall = Wall("wall", "wall.jpg")
+wall = Wall("wall", "wall.jpg")
 
 # Put characters and objects in labyrinth
 Grid.put_in_lab(mcGyver, keeper, ether, needle, syringe)
+Wall.wall_pos(Position.wall_position)
 
 
 lab.display_lab(screen)
@@ -242,13 +248,11 @@ while continue_game:
         if event.type == QUIT:
             continue_game = False
         elif event.type == KEYDOWN:
-
             if event.key == K_RIGHT:
                 mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x, 0)
                 # if mcGyver.p_rect.colliderect(w_rect):
                 #     mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x - 1, 0)
             elif event.key == K_LEFT:
-                # if Grid.LEVEL_STRUCT[mcGyver.position[0]][mcGyver.position[1] - 1] != "#":
                 mcGyver.p_rect = mcGyver.p_rect.move(-mcGyver.x, 0)
             elif event.key == K_UP:
                 mcGyver.p_rect = mcGyver.p_rect.move(0, -mcGyver.y)
