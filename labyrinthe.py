@@ -160,7 +160,7 @@ class MacGyver(Character):
         super().__init__(name, picture)
         self.position = Position.random_position()
         self.p_rect = self.picture.get_rect()
-        self.p_rect = pg.Rect(self.position[1] * 30, self.position[0] * 30, 30, 30)s
+        self.p_rect = pg.Rect(self.position[1] * 30, self.position[0] * 30, 30, 30)
         self.x = 30
         self.y = 30
 
@@ -263,6 +263,7 @@ while continue_game:
     lab.display_lab(screen)
     screen.blit(mcGyver.picture, mcGyver.p_rect)
     pg.display.flip()
+pg.quit()
 
 # def main():
 #
