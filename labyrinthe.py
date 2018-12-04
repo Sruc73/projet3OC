@@ -57,7 +57,7 @@ class Grid:
                         # lines of the file
             for index, line in enumerate(f):
                 level_line = []
-                #sprites in file
+                # sprites in file
                 for sprite in line:
                     # ignore "\n"
                     if sprite != '\n':
@@ -258,6 +258,20 @@ while continue_game:
                 mcGyver.p_rect = mcGyver.p_rect.move(0, -mcGyver.y)
             elif event.key == K_DOWN:
                 mcGyver.p_rect = mcGyver.p_rect.move(0, mcGyver.y)
+    # event = pg.event.wait()
+    # if event.type == QUIT:
+    #     continue_game = False
+    # elif event.type == KEYDOWN:
+    #     if event.key == K_RIGHT:
+    #         mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x, 0)
+    #         # if mcGyver.p_rect.colliderect(w_rect):
+    #         #     mcGyver.p_rect = mcGyver.p_rect.move(mcGyver.x - 1, 0)
+    #     elif event.key == K_LEFT:
+    #         mcGyver.p_rect = mcGyver.p_rect.move(-mcGyver.x, 0)
+    #     elif event.key == K_UP:
+    #         mcGyver.p_rect = mcGyver.p_rect.move(0, -mcGyver.y)
+    #     elif event.key == K_DOWN:
+    #         mcGyver.p_rect = mcGyver.p_rect.move(0, mcGyver.y)
 
     screen.blit(background, (0, 0))
     lab.display_lab(screen)
