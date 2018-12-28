@@ -224,8 +224,8 @@ lab = Grid("structure.txt")
 mcGyver = MacGyver("Mac Gyver", "macgyver.png")
 keeper = LabKeeper("Murdoc", "murdoc.png")
 ether = Objects("ether", "ether.png")
-needle = Objects("needle", "needle.png")
-syringe = Objects("syringe", "syringe.png")
+needle = Objects("needle", "aiguille.png")
+syringe = Objects("syringe", "seringue.png")
 # wall = Wall("wall", "wall.jpg")
 
 # Put characters and objects in labyrinth
@@ -245,7 +245,7 @@ pg.display.flip()
 continue_game = True
 while continue_game:
     for event in pg.event.get():
-        if event.type == QUIT:
+        if event.type == pg.QUIT    :
             continue_game = False
         elif event.type == KEYDOWN:
             if event.key == K_RIGHT:
